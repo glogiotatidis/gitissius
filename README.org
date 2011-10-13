@@ -5,6 +5,47 @@
 GitIssius is an issue tracker intergrated in your git repository. In
 other word a distributed bug tracker.
 
+*** Why bother?
+
+Your code lives in your git repo. Your documentation lives in your git
+repo. Why aren't your bugs in your git repo?
+
+Git provides a really great version control system. Unlike other
+systems though it does not provide any functionallality related to
+issue / bug tracking. You have to rely on 3rd party systems like
+[[http://www.bugzilla.org][Bugzilla]] or GitHub issue tracker to track your bugs.
+
+This is fundamentally wrong!
+
+ * Because you quit your programming enviroment to visit webpages to add
+   / view bugs.
+
+ * Because the bugs are not stored in the same place as your code
+   and/or documentation.
+
+ * Because you cannot edit / view your bugs offline.
+
+*GitIssius comes in action*
+
+GitIssius stores your bugs in the same repo where your code lives. It
+creates another branch named 'gitissius' which you don't have to
+checkout ever. Provides a git command named 'issius' to control you
+issues.
+
+It was inspired by other distributed bug tracking systems like [[http://fossil-scm.org/][Fossil]],
+[[http://bugseverywhere.org/][BugsEverywhere]] and [[http://ditz.rubyforge.org/][Ditz]]. Started as a fork of [[https://github.com/jwiegley/git-issues][git-issues]] but then
+realized that I wanted a completelly different code base, so I wrote
+most things from scratch.
+
+Features
+ - Stores your issues along with your repo
+ - No server required
+ - Simple operation
+ - Tab completion
+ - Easilly Extensible
+ - Python, no extra libraries required
+ - Cross Platform
+
 ** Installation
 
 1. ~$ git clone http://github.com/glogiotatidis/gitissius
