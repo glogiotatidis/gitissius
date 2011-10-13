@@ -1120,6 +1120,14 @@ def main():
         parser.print_help()
         sys.exit()
 
+    if not 'gitissius' in gitshelve.git('branch'):
+        # no local gitissius branch exists
+        # check if there is a remote
+        if 'remotes/origin/gitissius' in gitshelve.git('branch', '-a'):
+            # remote branch exists
+            # create a local copy
+            gitshelve.git('branch', 'gitissius', 'origin/gitissius')
+
     # initialize gitshelve
     git_repo = gitshelve.open(branch='gitissius')
 
