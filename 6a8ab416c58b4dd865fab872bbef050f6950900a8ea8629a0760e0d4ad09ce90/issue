@@ -1,0 +1,11 @@
+{
+    "status": "new", 
+    "description": "Add a \"git issius close [issue id]\" command tshortcut", 
+    "title": "Add close issue command", 
+    "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
+    "created_on": "2011-10-13 15:08:14", 
+    "assigned_to": "Giorgos Logiotatidis <seadog@sealabs.net>", 
+    "updated_on": "2011-10-13 15:08:13", 
+    "type": "feature", 
+    "id": "6a8ab416c58b4dd865fab872bbef050f6950900a8ea8629a0760e0d4ad09ce90"
+}
