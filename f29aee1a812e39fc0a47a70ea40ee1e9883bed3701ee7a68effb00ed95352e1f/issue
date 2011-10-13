@@ -1,0 +1,11 @@
+{
+    "status": "new", 
+    "description": "Provide a command to pull issues from repo", 
+    "title": "Provide pull command", 
+    "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
+    "created_on": "2011-10-13 15:20:24", 
+    "assigned_to": "Giorgos Logiotatidis <seadog@sealabs.net>", 
+    "updated_on": "2011-10-13 15:20:23", 
+    "type": "feature", 
+    "id": "f29aee1a812e39fc0a47a70ea40ee1e9883bed3701ee7a68effb00ed95352e1f"
+}
