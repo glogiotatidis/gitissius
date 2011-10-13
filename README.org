@@ -5,10 +5,10 @@
 GitIssius is an issue tracker intergrated in your git repository. In
 other word a distributed bug tracker.
 
-** Installing
+** Installation
 
-~$ git clone http://github.com/glogiotatidis/gitissius
-~$ cd gitissius && sudo python setup.py install
+1. ~$ git clone http://github.com/glogiotatidis/gitissius
+2. ~$ cd gitissius && sudo python setup.py install
 
 ** Use
 
