@@ -18,42 +18,35 @@ other word a distributed bug tracker.
 
 2. Start using GitIssius immediatelly
 
-   * *Add a new issue*
-
+   - *Add a new issue*
      ~$ git issius new
 
-   * *List issues*
-
+   - *List issues*
      ~$ git issius list
 
-   * *List issues assigned to you*
-
+   - *List issues assigned to you*
      ~$ git issius myissues
 
-   * *Show an issue*
-
+   - *Show an issue*
      ~$ git issius show [issue id]
 
-   * *Comment on an issues*
-
+   - *Comment on an issues*
      ~$ git issius comment [issue id]
 
-   * *Close an issue*
+   - *Close an issue*
 
      ~$ git issius close [issue id]
 
-   * *Push GitIssius changes*
-
+   - *Push GitIssius changes*
      ~$ git issius push
 
-   * *Get help*
-
+   - *Get help*
      ~$ git issius help
 
 ** Community
 
- * Bug Tracking: GitIssius eats each own food. So to report bugs please use gitissius ;)
- * Tweet at [[http://twitter.com/glogiotatidis/][@glogiotatidis]]
+ - Bug Tracking: GitIssius eats each own food. So to report bugs please use gitissius ;)
+ - Tweet at [[http://twitter.com/glogiotatidis/][@glogiotatidis]]
 
 ** Future
 
