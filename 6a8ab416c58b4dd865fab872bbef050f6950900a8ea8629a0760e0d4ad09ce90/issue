@@ -1,5 +1,5 @@
 {
-    "status": "new", 
+    "status": "closed", 
     "description": "Add a \"git issius close [issue id]\" command tshortcut", 
     "title": "Add close issue command", 
     "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
