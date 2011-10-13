@@ -889,6 +889,19 @@ class PushCommand(GitissiusCommand):
     def __call__(self, args, options):
         gitshelve.git('push', 'origin', 'gitissius')
 
+class PullCommand(GitissiusCommand):
+    """
+    Pull issues to repo
+    """
+    def __init__(self):
+        super(PullCommand, self).__init__(name="pull",
+                                          repr_name="Pull",
+                                          help="Pull issues to origin master"
+                                          )
+
+    def __call__(self, args, options):
+        gitshelve.git('pull', 'origin', 'gitissius', 'gitissius')
+
 class ShellCommand(GitissiusCommand):
     """
     Interactive shell
@@ -1075,6 +1088,7 @@ def main():
         'shell': ShellCommand(),
         'comment': CommentIssueCommand(),
         'push': PushCommand(),
+        'pull': PullCommand(),
         'close': CloseIssueCommand(),
         }
 
