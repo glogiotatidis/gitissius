@@ -16,7 +16,7 @@ other word a distributed bug tracker.
 
    ~$ cd /my/git/repo
 
-2. Start using GitIssius immediatelly
+2. Start using GitIssius immediatelly!
 
    - *Add a new issue*
      - ~$ git issius new
@@ -41,6 +41,9 @@ other word a distributed bug tracker.
 
    - *Get help*
      - ~$ git issius help
+
+*** Tips and tricks
+ - Use 'TAB' for completion in fields.
 
 ** Community
 
