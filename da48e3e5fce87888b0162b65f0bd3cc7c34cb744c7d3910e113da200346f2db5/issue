@@ -1,0 +1,11 @@
+{
+    "status": "new", 
+    "description": "Users must be able to search bugs based on various criteria.", 
+    "title": "Search issues", 
+    "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
+    "created_on": "2011-10-13 14:47:11", 
+    "assigned_to": "Giorgos Logiotatidis <seadog@sealabs.net>", 
+    "updated_on": "2011-10-13 14:47:02", 
+    "type": "feature", 
+    "id": "da48e3e5fce87888b0162b65f0bd3cc7c34cb744c7d3910e113da200346f2db5"
+}
