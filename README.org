@@ -3,7 +3,7 @@
 ** About
 
 GitIssius is an issue tracker intergrated in your git repository. In
-other word a distributed bug tracker.
+other words a distributed bug tracker.
 
 *** Why bother?
 
@@ -21,7 +21,7 @@ This is fundamentally wrong!
    / view bugs.
 
  - Because the bugs are not stored in the same place as your code
-   and/or documentation.
+   and / or documentation.
 
  - Because you cannot edit / view your bugs offline.
 
