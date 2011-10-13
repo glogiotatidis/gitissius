@@ -19,29 +19,28 @@ other word a distributed bug tracker.
 2. Start using GitIssius immediatelly
 
    - *Add a new issue*
-     ~$ git issius new
+     - ~$ git issius new
 
    - *List issues*
-     ~$ git issius list
+     - ~$ git issius list
 
    - *List issues assigned to you*
-     ~$ git issius myissues
+     - ~$ git issius myissues
 
    - *Show an issue*
-     ~$ git issius show [issue id]
+     - ~$ git issius show [issue id]
 
    - *Comment on an issues*
-     ~$ git issius comment [issue id]
+     - ~$ git issius comment [issue id]
 
    - *Close an issue*
-
-     ~$ git issius close [issue id]
+     - ~$ git issius close [issue id]
 
    - *Push GitIssius changes*
-     ~$ git issius push
+     - ~$ git issius push
 
    - *Get help*
-     ~$ git issius help
+     - ~$ git issius help
 
 ** Community
 
