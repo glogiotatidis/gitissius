@@ -22,6 +22,6 @@ setup(
         'console_scripts': ['git-issius = gitissius.gitissius:main']
         },
     data_files = [
-        ('gitissius', ['README', 'LICENSE']),
+        ('gitissius', ['README.org', 'LICENSE']),
         ]
     )
