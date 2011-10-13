@@ -1,11 +1,11 @@
 {
-    "status": "new", 
+    "status": "closed", 
     "description": "Pull command pulls to currenct branch instead of gitissius", 
     "title": "Pull command pulls to working branch", 
     "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
     "created_on": "2011-10-13 15:37:37", 
     "assigned_to": "Giorgos Logiotatidis <seadog@sealabs.net>", 
-    "updated_on": "2011-10-13 15:37:36", 
+    "updated_on": "2011-10-13 16:07:28", 
     "type": "bug", 
     "id": "9ef0a8b65798bea7a8b242a04dbb5de981ebc410aa2d5ee337c034c086ac80e0"
 }
