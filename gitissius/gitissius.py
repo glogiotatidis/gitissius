@@ -900,7 +900,23 @@ class PullCommand(GitissiusCommand):
                                           )
 
     def __call__(self, args, options):
-        gitshelve.git('pull', 'origin', 'gitissius', 'gitissius')
+        # save current branch name
+        branch = gitshelve.git('name-rev', '--name-only', 'HEAD')
+
+        # stash changes
+        gitshelve.git('stash')
+
+        # switch branches
+        gitshelve.git('checkout', 'gitissius')
+
+        # pull updates
+        gitshelve.git('pull', 'origin', 'gitissius')
+
+        # switch back to previous branch
+        gitshelve.git('checkout', branch)
+
+        # pop stashed changes
+        gitshelve.git('stash', 'pop')
 
 class ShellCommand(GitissiusCommand):
     """
