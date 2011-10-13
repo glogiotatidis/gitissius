@@ -1,0 +1,52 @@
+* GitIssius
+
+** About
+
+GitIssius is an issue tracker intergrated in your git repository. In
+other word a distributed bug tracker.
+
+** Installing
+
+~$ git clone http://github.com/glogiotatidis/gitissius
+~$ cd gitissius && sudo python setup.py install
+
+** Use
+
+1. After you finish GitIssius installation go to a git repository.
+
+   ~$ cd /my/git/repo
+
+2. Start using GitIssius immediatelly
+
+   * Add a new issue
+     ~$ git issius new
+
+   * List issues
+     ~$ git issius list
+
+   * List issies assigned to you
+     ~$ git issius myissues
+
+   * Show an issue
+     ~$ git issius show [issue id]
+
+   * Comment on an issues
+     ~$ git issius comment [issue id]
+
+   * Close an issues
+     ~$ git issius close [issue id]
+
+   * Push GitIssius changes
+     ~$ git issius push
+
+   * Get help
+     ~$ git issius help
+
+** Community
+
+ * Bug Tracking: GitIssius eats each own food. So to report bugs please use gitissius ;)
+ * Tweet at [[http://twitter.com/glogiotatidis/][@glogiotatidis]]
+
+** Future
+
+A companion web service comes soon! Write down http://www.gitissius.org
