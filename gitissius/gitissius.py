@@ -1,8 +1,11 @@
 #
 # Git-issues-ng
 #
+# Giorgos Logiotatidis <seadog@sealabs.net>
+# http://www.github.com/glogiotatidis/gitissius
+# http://www.gitissius.org
 #
-# Refactored code, json
+# Distributed bug tracking using git
 
 import optparse
 import os
