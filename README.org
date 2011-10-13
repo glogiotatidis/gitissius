@@ -17,13 +17,13 @@ issue / bug tracking. You have to rely on 3rd party systems like
 
 This is fundamentally wrong!
 
- * Because you quit your programming enviroment to visit webpages to add
+ - Because you quit your programming enviroment to visit webpages to add
    / view bugs.
 
- * Because the bugs are not stored in the same place as your code
+ - Because the bugs are not stored in the same place as your code
    and/or documentation.
 
- * Because you cannot edit / view your bugs offline.
+ - Because you cannot edit / view your bugs offline.
 
 *GitIssius comes in action*
 
