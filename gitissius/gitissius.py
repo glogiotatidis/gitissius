@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 #
 # Git-issues-ng
 #
@@ -6,6 +7,7 @@
 # http://www.gitissius.org
 #
 # Distributed bug tracking using git
+#
 
 import optparse
 import os
@@ -874,6 +876,19 @@ class EditIssueCommand(GitissiusCommand):
 
         print "Edited issue: %s" % issue.get_property('id')
 
+class PushCommand(GitissiusCommand):
+    """
+    Push issues to repo
+    """
+    def __init__(self):
+        super(PushCommand, self).__init__(name="push",
+                                          repr_name="Push",
+                                          help="Push issues to origin master"
+                                          )
+
+    def __call__(self, args, options):
+        gitshelve.git('push', 'origin', 'gitissius')
+
 class ShellCommand(GitissiusCommand):
     """
     Interactive shell
@@ -900,13 +915,45 @@ class ListIssuesCommand(GitissiusCommand):
     def __call__(self, args, options):
         _print_issues(issue_manager.all())
 
-class InitCommand(GitissiusCommand):
+class CloseIssueCommand(GitissiusCommand):
+    """
+    Close Issue
+    """
+    def __init__(self):
+        super(CloseIssueCommand, self).__init__(name="close",
+                                                repr_name="Close",
+                                                help="Close an issue"
+                                                )
+
+    def __call__(self, args, options):
+        # find issue
+        try:
+            issue_id = args[0]
+
+        except IndexError:
+            self.help()
+
+        issue = issue_manager.get(issue_id)
+
+        # close issue
+        issue.get_property('status').value = 'closed'
+        issue.get_property('updated_on').value = _now()
+
+        # add to repo
+        git_repo[issue.path] = issue.serialize(indent=4)
+
+        # commit
+        git_repo.commit("Closed issue %s" % issue.get_property('id'))
+
+        print "Closed issue: %s" % issue.get_property('id')
+
+class InstallCommand(GitissiusCommand):
     """ Initiailize repo to use git-issues """
 
     def __init__(self):
-        super(InitCommand, self).__init__(name="init",
-                                          repr_name="Init",
-                                          help="Init Gitissius"
+        super(InstallCommand, self).__init__(name="install",
+                                          repr_name="Install",
+                                          help="Install Gitissius in current repositoy"
                                           )
 
     def __call__(self, args, options):
@@ -930,7 +977,7 @@ class InitCommand(GitissiusCommand):
         os.makedirs(mydir)
 
         for fle in map(lambda x: os.path.join(os.path.dirname(__file__), x),
-                       [__file__, 'gitshelve.py', 'README', 'LICENSE']
+                       ['gitissius.py', 'gitshelve.py', 'README', 'LICENSE']
                        ):
             shutil.copy(fle, mydir)
 
@@ -1020,13 +1067,15 @@ def main():
     available_commands = {
         'new': NewIssueCommand(),
         'list': ListIssuesCommand(),
-        'init': InitCommand(),
+        'install': InstallCommand(),
         'show': ShowIssueCommand(),
         'myissues': ShowMyIssuesCommand(),
         'search_issues': SearchCommand(),
         'edit': EditIssueCommand(),
         'shell': ShellCommand(),
         'comment': CommentIssueCommand(),
+        'push': PushCommand(),
+        'close': CloseIssueCommand(),
         }
 
     parser = optparse.OptionParser(usage=usage(available_commands))
