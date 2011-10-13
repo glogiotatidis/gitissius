@@ -1,11 +1,11 @@
 {
-    "status": "new", 
+    "status": "closed", 
     "description": "When a user clones a gitissius enabled repo, \"gitissius\" branch is not autgets not automatically fetched.\nOne the first use of gitissius created local copy of remove gitissius branch.", 
     "title": "Create locally origin/gitissius branch when needed", 
     "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
     "created_on": "2011-10-13 15:54:12", 
     "assigned_to": "Giorgos Logiotatidis <seadog@sealabs.net>", 
-    "updated_on": "2011-10-13 15:54:11", 
+    "updated_on": "2011-10-13 16:39:55", 
     "type": "bug", 
     "id": "2cdf3281a950857204a1f1601a043a4a55fbd568cc5b529ad1c860ef7cdd715f"
 }
