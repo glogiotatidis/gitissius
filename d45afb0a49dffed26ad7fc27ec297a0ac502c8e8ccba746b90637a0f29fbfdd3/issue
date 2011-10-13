@@ -1,0 +1,11 @@
+{
+    "status": "new", 
+    "description": "When colorama module is available use colors", 
+    "title": "Use colors when possible", 
+    "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
+    "created_on": "2011-10-13 23:39:10", 
+    "assigned_to": "Giorgos Logiotatidis <seadog@sealabs.net>", 
+    "updated_on": "2011-10-13 23:39:09", 
+    "type": "feature", 
+    "id": "d45afb0a49dffed26ad7fc27ec297a0ac502c8e8ccba746b90637a0f29fbfdd3"
+}
