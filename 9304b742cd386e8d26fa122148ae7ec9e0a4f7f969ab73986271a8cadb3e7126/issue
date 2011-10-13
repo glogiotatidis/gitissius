@@ -1,11 +1,11 @@
 {
-    "status": "new", 
+    "status": "closed", 
     "description": "Close command does not update 'updated_on'", 
     "title": "Close command does not update 'updated_on'", 
     "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
     "created_on": "2011-10-13 15:11:19", 
     "assigned_to": "Giorgos Logiotatidis <seadog@sealabs.net>", 
-    "updated_on": "2011-10-13 15:11:18", 
+    "updated_on": "2011-10-13 15:11:56", 
     "type": "bug", 
     "id": "9304b742cd386e8d26fa122148ae7ec9e0a4f7f969ab73986271a8cadb3e7126"
 }
