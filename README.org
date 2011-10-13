@@ -42,6 +42,7 @@ Features
  - No server required
  - Simple operation
  - Tab completion
+ - Data is stored in JSON
  - Easilly Extensible
  - Python, no extra libraries required
  - Cross Platform
