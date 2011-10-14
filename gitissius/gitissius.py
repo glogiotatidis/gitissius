@@ -664,11 +664,14 @@ class IssueManager(object):
         return self.filter(sort_key=sort_key)
 
     def filter(self, rules=None, operator="and", sort_key=None):
+        assert isinstance(rules, list)
+
         matching_keys = self.issuedb.keys()
         not_maching_keys = []
 
         if rules:
-            for name, value in rules.iteritems():
+            for rule in rules:
+                name, value = rule.items()[0]
                 # parse operators
                 cmd = name.split("__")
                 name = cmd[0]
@@ -970,11 +973,11 @@ class ListIssuesCommand(GitissiusCommand):
                                help="Filter result using key")
 
     def _execute(self, options, args):
-        filters = {}
+        filters = []
         if options.filter:
             for fltr in options.filter.split(","):
                 key, value = fltr.split(':')
-                filters[key] = value
+                filters.append({key:value})
 
         _print_issues(issue_manager.filter(sort_key=options.sort, rules=filters))
 
@@ -994,7 +997,7 @@ class ListMyIssuesCommand(GitissiusCommand):
 
     def _execute(self, options, args):
         user_email = gitshelve.git('config', 'user.email')
-        issues = issue_manager.filter(rules={'assigned_to': user_email},
+        issues = issue_manager.filter(rules=[{'assigned_to': user_email}],
                                       operator="and",
                                       sort_key=options.sort
                                       )
