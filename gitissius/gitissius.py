@@ -19,6 +19,12 @@ import readline
 import hashlib
 from datetime import datetime
 
+try:
+    import colorama
+    colorama.init(autoreset=True)
+except ImportError:
+    colorama = False
+
 import gitshelve
 
 VERSION = "0.1"
@@ -109,11 +115,26 @@ class DbProperty(object):
         self.value = value
         self.editable = True
 
+        # if colorama is presend set colors
+        if colorama:
+            self._color = {
+                'repr_name': '',
+                'value': '',
+                }
+
     def __str__(self):
         return self.value or ''
 
+    def repr(self, attr):
+        value = getattr(self, attr)
+
+        if colorama:
+            value = self._color.get(attr, '') + value + colorama.Fore.RESET
+
+        return value
+
     def printme(self):
-        print "%s: %s" % (self.repr_name, self.value)
+        print "%s: %s" % (self.repr('repr_name'), self.repr('value'))
 
     def interactive_edit(self, default=None, completer=[]):
         """
@@ -344,7 +365,9 @@ class DescriptionProperty(DbProperty):
                                                   )
 
     def printme(self):
-        print "%s:\n  %s" % (self.repr_name, self.value.replace('\n', '\n  '))
+        print "%s:\n  %s" % (self.repr('repr_name'),
+                             self.repr('value').replace('\n', '\n  ')
+                             )
 
     def interactive_edit(self, default=None):
         if not default:
@@ -566,6 +589,16 @@ class DbObject(object):
         for name in self._print_order:
             prop = self.get_property(name)
             prop.printme()
+
+    def printmedict(self):
+        """
+        Return a dictionary with all properties after self.repr
+        """
+        dic = {}
+        for prop in self._properties:
+            dic[prop.name] = prop.repr('value')
+
+        return dic
 
     @property
     def path(self):
@@ -1160,26 +1193,32 @@ def _print_issues(issues):
 
     # 40% for title
     title_size = int(twidth * .4)
-    status_size = 6
-    id_size = 5
+    status_size = 6 if not colorama else 9
+    id_size = 5 if not colorama else 15
     assigned_to_size = twidth - title_size - status_size - id_size - 10
 
-    fmt = "{id:%s.%ss} | {title:%s.%ss} | {assigned_to:%s.%ss} | {status:%s.%ss} " % \
-          (id_size, id_size, title_size,
-           title_size, assigned_to_size, assigned_to_size,
-           status_size, status_size)
+    fmt = "{id:%s.%ss} %s|%s {title:%s.%ss} %s|%s {assigned_to:%s.%ss} %s|%s {status:%s.%ss} " % \
+          (id_size, id_size, colorama.Fore.WHITE, colorama.Fore.RESET, title_size,
+           title_size, colorama.Fore.WHITE, colorama.Fore.RESET, assigned_to_size, assigned_to_size,
+           colorama.Fore.WHITE,  colorama.Fore.RESET, status_size, status_size)
 
 
-    print fmt.format(**{'id':'ID',
-                        'title':'Title',
-                        'status':'Status',
-                        'assigned_to':'Assigned To'
-                        }
-                     )
+    # fields to be printer
+    table_fields = {'id': 'ID',
+                    'title':'Title',
+                    'status':'Status',
+                    'assigned_to':'Assigned To'
+                    }
+
+    if colorama:
+        for key, value in table_fields.iteritems():
+            table_fields[key] = colorama.Fore.WHITE + value
+
+    print fmt.format(**table_fields)
     print '-' * _terminal_width()
 
-    for issue in issues:
-        print fmt.format(**issue.properties)
+    for id, issue in issues.iteritems():
+        print fmt.format(**issue.printmedict())
 
     print '-' * _terminal_width()
     print "Total Issues: %d" % len(issues)
