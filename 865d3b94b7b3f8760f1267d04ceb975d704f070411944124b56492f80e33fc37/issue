@@ -1,11 +1,11 @@
 {
-    "status": "new", 
+    "status": "closed", 
     "description": "List command must provide sorting features. \n\nE.g. list sort by date, sort by id, sort by status, sort by assigned_to\n\nCurrently the order is random", 
     "title": "List function sort mechanism", 
     "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
     "created_on": "2011-10-13 16:04:53", 
     "assigned_to": "Giorgos Logiotatidis <seadog@sealabs.net>", 
-    "updated_on": "2011-10-13 16:04:52", 
+    "updated_on": "2011-10-14 19:49:51", 
     "type": "feature", 
     "id": "865d3b94b7b3f8760f1267d04ceb975d704f070411944124b56492f80e33fc37"
 }
