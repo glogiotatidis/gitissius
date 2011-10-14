@@ -599,6 +599,7 @@ class Issue(DbObject):
     def _build_commentsdb(self):
         id = self.get_property('id')
         comment_path = "{id}/comments/".format(**{'id':id})
+
         for item in git_repo.keys():
             if item.startswith(comment_path):
                 obj = Comment.load(json.loads(git_repo[item]))
@@ -659,29 +660,65 @@ class IssueManager(object):
     def update_db(self):
         self._build_issuedb()
 
-    def all(self):
-        return self.issuedb
+    def all(self, sort_key=None):
+        return self.filter(sort_key=sort_key)
 
-    def filter(self, rules, operator="and"):
+    def filter(self, rules=None, operator="and", sort_key=None):
         matching_keys = self.issuedb.keys()
         not_maching_keys = []
 
-        for name, value in rules.iteritems():
-            value = value.lower()
+        if rules:
+            for name, value in rules.iteritems():
+                # parse operators
+                cmd = name.split("__")
+                name = cmd[0]
 
+                operators = [lambda x,y: x.lower() in y.lower()]
+
+                if "exact" in cmd[1:]:
+                    operators += [lambda x,y: x == y]
+
+                if "startswith" in cmd[1:]:
+                    operators += [lambda x,y: y.startswith(x)]
+
+                for key in matching_keys:
+                    try:
+                        result = reduce(lambda x,y: x==y==True,
+                                        map(lambda x: x(value, self.issuedb[key].properties[name].value),
+                                            operators
+                                            )
+                                        )
+
+                        if "not" in cmd[1:]:
+                            if result:
+                                not_maching_keys.append(key)
+
+                        else:
+                            if not result:
+                                not_maching_keys.append(key)
+
+                    except KeyError:
+                        print "Error searching"
+                        return []
+
+            map(lambda x: matching_keys.remove(x), not_maching_keys)
+            issues = []
             for key in matching_keys:
-                try:
-                    if value not in self.issuedb[key].properties[name].value.lower():
-                        not_maching_keys.append(key)
-                except KeyError:
-                    print "Error searching"
-                    return []
+                issues.append(self.issuedb[key])
 
-        map(lambda x: matching_keys.remove(x), not_maching_keys)
-        issues = {}
-        for key in matching_keys:
-            issues[key] = self.issuedb[key]
+        else:
+            issues = [issue for issue in self.issuedb.values()]
 
+        if sort_key:
+            issues = self.order(issues, sort_key)
+
+        return issues
+
+    def order(self, issues, key):
+        """
+        Short issues by key
+        """
+        issues.sort(key=lambda x: x.get_property(key).value)
         return issues
 
     def get(self, issue_id):
@@ -708,8 +745,13 @@ class GitissiusCommand(object):
         self.name = name
         self.repr_name = repr_name
         self.help = help
+        self.parser = optparse.OptionParser()
 
-    def __call__(self):
+    def __call__(self, args):
+        (options, args) = self.parser.parse_args(args)
+        return self._execute(options, args)
+
+    def _execute(self, options, args):
         assert False
 
 class NewIssueCommand(GitissiusCommand):
@@ -719,7 +761,7 @@ class NewIssueCommand(GitissiusCommand):
                                               repr_name="New Issue",
                                               help="Create an issue"
                                               )
-    def __call__(self, args, options):
+    def _execute(self, options, args):
         try:
             title = args[0]
             issue = Issue(title=title)
@@ -750,7 +792,7 @@ class ShowIssueCommand(GitissiusCommand):
         print "Usage:"
         print "\t%s show [issue_id]" % sys.argv[0]
 
-    def __call__(self, args, options):
+    def _execute(self, options, args):
         # find issue
         try:
             issue_id = args[0]
@@ -789,7 +831,7 @@ class CommentIssueCommand(GitissiusCommand):
         print "Usage:"
         print "\t%s comment [issue_id]" % sys.argv[0]
 
-    def __call__(self, args, options):
+    def _execute(self, options, args):
         # find issue
         try:
             issue_id = args[0]
@@ -818,28 +860,8 @@ class SearchCommand(GitissiusCommand):
                                             help="Search issues"
                                             )
 
-    def __call__(self, args, options):
+    def _execute(self, options, args):
         print "Not implemented yet"
-
-class ShowMyIssuesCommand(GitissiusCommand):
-    """
-    Show only my issues.
-    Helper function to list_issues
-    """
-    def __init__(self):
-        super(ShowMyIssuesCommand, self).__init__(name="myissues",
-                                                  repr_name="My Issues",
-                                                  help="Show issues assigned to you"
-                                                  )
-
-    def __call__(self, args, options):
-        user_email = gitshelve.git('config', 'user.email')
-
-        issues = issue_manager.filter(rules={'assigned_to': user_email},
-                                      operator="and",
-                                      )
-
-        _print_issues(issues)
 
 class EditIssueCommand(GitissiusCommand):
     """ Edit an issue """
@@ -855,7 +877,7 @@ class EditIssueCommand(GitissiusCommand):
         """
         print "Edit issue help"
 
-    def __call__(self, args, options):
+    def _execute(self, options, args):
         # find issue
         try:
             issue_id = args[0]
@@ -886,7 +908,7 @@ class PushCommand(GitissiusCommand):
                                           help="Push issues to origin master"
                                           )
 
-    def __call__(self, args, options):
+    def _execute(self, options, args):
         gitshelve.git('push', 'origin', 'gitissius')
 
 class PullCommand(GitissiusCommand):
@@ -899,7 +921,7 @@ class PullCommand(GitissiusCommand):
                                           help="Pull issues to origin master"
                                           )
 
-    def __call__(self, args, options):
+    def _execute(self, options, args):
         # save current branch name
         branch = gitshelve.git('name-rev', '--name-only', 'HEAD')
 
@@ -928,7 +950,7 @@ class ShellCommand(GitissiusCommand):
                                            help="Open a gitissius shell"
                                            )
 
-    def __call__(self, args, options):
+    def _execute(self, options, args):
         print "Not implemented yet."
 
 class ListIssuesCommand(GitissiusCommand):
@@ -940,9 +962,43 @@ class ListIssuesCommand(GitissiusCommand):
                                                 repr_name="List",
                                                 help="List issues"
                                                 )
+        self.parser = optparse.OptionParser()
+        self.parser.add_option("--sort",
+                               help="Sort results using key")
+        self.parser.add_option("--filter",
+                               default=None,
+                               help="Filter result using key")
 
-    def __call__(self, args, options):
-        _print_issues(issue_manager.all())
+    def _execute(self, options, args):
+        filters = {}
+        if options.filter:
+            for fltr in options.filter.split(","):
+                key, value = fltr.split(':')
+                filters[key] = value
+
+        _print_issues(issue_manager.filter(sort_key=options.sort, rules=filters))
+
+class ListMyIssuesCommand(GitissiusCommand):
+    """
+    List MyIssues
+    """
+    def __init__(self):
+        super(ListMyIssuesCommand, self).__init__(name="myissues",
+                                                  repr_name="My Issues",
+                                                  help="Show issues assigned to you"
+                                                  )
+
+        self.parser = optparse.OptionParser()
+        self.parser.add_option("--sort",
+                               help="Sort results using key")
+
+    def _execute(self, options, args):
+        user_email = gitshelve.git('config', 'user.email')
+        issues = issue_manager.filter(rules={'assigned_to': user_email},
+                                      operator="and",
+                                      sort_key=options.sort
+                                      )
+        _print_issues(issues)
 
 class CloseIssueCommand(GitissiusCommand):
     """
@@ -954,7 +1010,7 @@ class CloseIssueCommand(GitissiusCommand):
                                                 help="Close an issue"
                                                 )
 
-    def __call__(self, args, options):
+    def _execute(self, options, args):
         # find issue
         try:
             issue_id = args[0]
@@ -985,7 +1041,7 @@ class InstallCommand(GitissiusCommand):
                                           help="Install Gitissius in current repositoy"
                                           )
 
-    def __call__(self, args, options):
+    def _execute(self, options, args):
         cwd = os.getcwd()
 
         while not os.path.exists(os.path.join(cwd, ".git")):
@@ -1037,7 +1093,7 @@ def _print_issues(issues):
                      )
     print '-' * _terminal_width()
 
-    for id, issue in issues.iteritems():
+    for issue in issues:
         print fmt.format(**issue.properties)
 
 def _current_user():
@@ -1098,7 +1154,7 @@ def main():
         'list': ListIssuesCommand(),
         'install': InstallCommand(),
         'show': ShowIssueCommand(),
-        'myissues': ShowMyIssuesCommand(),
+        'myissues': ListMyIssuesCommand(),
         'search_issues': SearchCommand(),
         'edit': EditIssueCommand(),
         'shell': ShellCommand(),
@@ -1108,12 +1164,8 @@ def main():
         'close': CloseIssueCommand(),
         }
 
-    parser = optparse.OptionParser(usage=usage(available_commands))
-
-    (options, args) = parser.parse_args()
-
     try:
-        command = args[0]
+        command = sys.argv[1]
 
     except IndexError:
         # no command given
@@ -1135,11 +1187,10 @@ def main():
     issue_manager = IssueManager()
 
     try:
-        available_commands[command](args[1:], options)
+        available_commands[command](sys.argv[2:])
 
     except KeyError:
         print "Invalid command"
-        parser.print_help()
         raise
 
     git_repo.close()
