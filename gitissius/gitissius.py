@@ -774,7 +774,7 @@ class IssueManager(object):
                 matching_keys.append(key)
 
         if len(matching_keys) == 0:
-            raise IssueIDNotFound()
+            raise IssueIDNotFound(issue_id)
 
         elif len(matching_keys) > 1:
             raise IssueIDConflict(map(lambda x: self.issuedb[x], matching_keys))
@@ -1315,6 +1315,9 @@ def main():
     except IssueIDConflict, error:
         print " >", "Error: Conflicting IDS"
         print error
+
+    except IssueIDNotFound, error:
+        print " >", "Error: ID not found", error
 
     git_repo.close()
 
