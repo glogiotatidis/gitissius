@@ -1,11 +1,11 @@
 {
-    "status": "new", 
+    "status": "closed", 
     "description": "Comment appear in issue list. Probably also loaded as issues in IssueManager", 
     "title": "Comments appear in issue list", 
     "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
     "created_on": "2011-10-16 15:44:21", 
     "assigned_to": "Giorgos Logiotatidis <seadog@sealabs.net>", 
-    "updated_on": "2011-10-16 15:44:20", 
+    "updated_on": "2011-10-16 15:47:20", 
     "type": "bug", 
     "id": "7905a9b5892000276dbceee99b803c04932a44de3e96b09e9ebf1d0436e336f3"
 }
