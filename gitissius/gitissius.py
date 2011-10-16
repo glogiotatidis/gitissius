@@ -1238,6 +1238,7 @@ def main():
         'install': InstallCommand(),
         'show': ShowIssueCommand(),
         'myissues': ListMyIssuesCommand(),
+        'mylist': ListMyIssuesCommand(),
         'search_issues': SearchCommand(),
         'edit': EditIssueCommand(),
         'shell': ShellCommand(),
