@@ -665,8 +665,10 @@ class IssueManager(object):
         self._issuedb = {}
 
         for issue in git_repo.keys():
-            obj = Issue.load(json.loads(git_repo[issue]))
-            self._issuedb[str(obj.get_property('id'))] = obj
+            if not '/comments/' in issue:
+                # making sure that we don't treat comments as issues
+                obj = Issue.load(json.loads(git_repo[issue]))
+                self._issuedb[str(obj.get_property('id'))] = obj
 
     def update_db(self):
         self._build_issuedb()
