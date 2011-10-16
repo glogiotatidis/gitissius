@@ -1,0 +1,11 @@
+{
+    "status": "new", 
+    "description": "On 'list' command the 'id' column must have a dynamically calculated size, large enough so that each issue displayed has a unique id shortcut", 
+    "title": "Status column must have dynamically calculated size", 
+    "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
+    "created_on": "2011-10-16 15:52:40", 
+    "assigned_to": "None", 
+    "updated_on": "2011-10-16 15:52:39", 
+    "type": "feature", 
+    "id": "a2db30d7863bc86d6ef401c9fb159628957dc63c25f72413e6fb566de696ea42"
+}
