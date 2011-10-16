@@ -1,11 +1,11 @@
 {
-    "status": "new", 
+    "status": "closed", 
     "description": "When user uses a shortcut id for an action, which does not translate to a unique id, then display a proper message instead of an exception with traceback ;)", 
     "title": "When issue ids conflict, display a proper error message", 
     "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
     "created_on": "2011-10-16 15:41:39", 
     "assigned_to": "Giorgos Logiotatidis <seadog@sealabs.net>", 
-    "updated_on": "2011-10-16 15:41:38", 
+    "updated_on": "2011-10-16 23:01:28", 
     "type": "bug", 
     "id": "ccc7fc0fe9882d4769c4732ead1b99ee7adaff9aacebe7446a3265191d087465"
 }
