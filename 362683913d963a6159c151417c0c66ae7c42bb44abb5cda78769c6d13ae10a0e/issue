@@ -1,11 +1,11 @@
 {
-    "status": "new", 
+    "status": "closed", 
     "description": "When invalid command is given, disaply help instead of Exception / Traceback", 
     "title": "When invalid command is given, display help", 
     "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
     "created_on": "2011-10-16 15:47:39", 
     "assigned_to": "Giorgos Logiotatidis <seadog@sealabs.net>", 
-    "updated_on": "2011-10-16 15:47:35", 
+    "updated_on": "2011-10-16 19:43:05", 
     "type": "bug", 
     "id": "362683913d963a6159c151417c0c66ae7c42bb44abb5cda78769c6d13ae10a0e"
 }
