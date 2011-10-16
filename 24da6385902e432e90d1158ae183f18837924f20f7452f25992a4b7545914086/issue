@@ -1,11 +1,11 @@
 {
-    "status": "new", 
+    "status": "closed", 
     "description": "Change order to:\ntitle,\nstatus,\ntype,\nreported_from\nassigned_to\ndescription\n\nand hide created_on and updated_on", 
     "title": "Change order in 'new'", 
     "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
     "created_on": "2011-10-16 16:49:26", 
     "assigned_to": "Giorgos Logiotatidis <seadog@sealabs.net>", 
-    "updated_on": "2011-10-16 16:49:25", 
+    "updated_on": "2011-10-16 17:10:42", 
     "type": "bug", 
     "id": "24da6385902e432e90d1158ae183f18837924f20f7452f25992a4b7545914086"
 }
