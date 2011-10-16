@@ -1,11 +1,11 @@
 {
-    "status": "new", 
+    "status": "closed", 
     "description": "When an issues is already closed, do not allow to be re-closed using the 'close' command", 
     "title": "Do not 'close' an already closed issues", 
     "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
     "created_on": "2011-10-16 15:51:14", 
     "assigned_to": "Giorgos Logiotatidis <seadog@sealabs.net>", 
-    "updated_on": "2011-10-16 15:51:12", 
+    "updated_on": "2011-10-16 16:45:53", 
     "type": "bug", 
     "id": "1f1c88a3b1ab4614230f196f9d9a9dc42a7219901e866eb0c29a06117f64f00f"
 }
