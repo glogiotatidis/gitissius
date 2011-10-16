@@ -69,7 +69,31 @@ class IssueIDNotFound(Exception):
     pass
 
 class IssueIDConflict(Exception):
-    pass
+    def __init__(self, issues):
+        self.issues = issues
+        self._threshold = self._calculate_threshold()
+
+        return super(IssueIDConflict, self).__init__()
+
+    def _calculate_threshold(self):
+        first = self.issues[0].get_property('id').value
+        second = self.issues[1].get_property('id').value
+
+        for i in range(len(first)):
+            if first[i] != second[i]:
+                break
+
+        return i
+
+    def __str__(self):
+        msg = ''
+        for issue in self.issues:
+            msg += "[%s]%s: %s\n" %\
+                   (issue.get_property('id').value[:self._threshold],
+                    issue.get_property('id').value[self._threshold:],
+                    issue.get_property('title')
+                    )
+        return msg
 
 class DbProperty(object):
     """
@@ -753,10 +777,9 @@ class IssueManager(object):
             raise IssueIDNotFound()
 
         elif len(matching_keys) > 1:
-            raise IssueIDConflict()
+            raise IssueIDConflict(map(lambda x: self.issuedb[x], matching_keys))
 
         return self._issuedb[matching_keys[0]]
-
 
 class GitissiusCommand(object):
     """
@@ -1219,7 +1242,7 @@ def _verify(text, default=None):
         reply = reply.strip().lower()
 
         if default and reply == '':
-            reply='y'
+            reply = 'y'
 
         if reply in ['y', 'n', 'yes', 'no']:
             break
@@ -1288,6 +1311,10 @@ def main():
     except KeyError:
         print " >", "Invalid command"
         print usage(available_commands)
+
+    except IssueIDConflict, error:
+        print " >", "Error: Conflicting IDS"
+        print error
 
     git_repo.close()
 
