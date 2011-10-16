@@ -1,0 +1,11 @@
+{
+    "status": "new", 
+    "description": "When the repo is new and has no or one only commit when git issius new command crashes\n\nError:\nTraceback (most recent call last):\n  File \"/usr/local/bin/git-issius\", line 9, in <module>\n    load_entry_point('Gitissius==0.1', 'console_scripts', 'git-issius')()\n  File \"/usr/local/lib/python2.6/dist-packages/Gitissius-0.1-py2.6.egg/gitissius/gitissius.py\", line 1259, in main\n    available_commands[command](sys.argv[2:])\n  File \"/usr/local/lib/python2.6/dist-packages/Gitissius-0.1-py2.6.egg/gitissius/gitissius.py\", line 766, in __call__\n    return self._execute(options, args)\n  File \"/usr/local/lib/python2.6/dist-packages/Gitissius-0.1-py2.6.egg/gitissius/gitissius.py\", line 787, in _execute\n    issue.interactive_edit()\n  File \"/usr/local/lib/python2.6/dist-packages/Gitissius-0.1-py2.6.egg/gitissius/gitissius.py\", line 558, in interactive_edit\n    item.interactive_edit()\n  File \"/usr/local/lib/python2.6/dist-packages/Gitissius-0.1-py2.6.egg/gitissius/gitissius.py\", line 396, in interactive_edit\n    completer=_get_commiters()\n  File \"/usr/local/lib/python2.6/dist-packages/Gitissius-0.1-py2.6.egg/gitissius/gitissius.py\", line 1161, in _get_commiters\n    commiters.remove('\\n')\nKeyError: '\\n'", 
+    "title": "When repo has no commiters, 'new' crashes", 
+    "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
+    "created_on": "2011-10-16 15:21:43", 
+    "assigned_to": "Giorgos Logiotatidis <seadog@sealabs.net>", 
+    "updated_on": "2011-10-16 15:21:42", 
+    "type": "bug", 
+    "id": "6a89e9fd15867917419eb9f96e30ea18922f013a8398b28a27193884f3b4aef8"
+}
