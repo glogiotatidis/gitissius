@@ -1,0 +1,11 @@
+{
+    "status": "new", 
+    "description": "'show full' must be replaced with 'show --full'", 
+    "title": "'show full' must be replaced with 'show --full'", 
+    "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
+    "created_on": "2011-10-16 15:31:11", 
+    "assigned_to": "Giorgos Logiotatidis <seadog@sealabs.net>", 
+    "updated_on": "2011-10-16 15:31:10", 
+    "type": "feature", 
+    "id": "896d9cf1121499aac661aad6b330b74908c8730f39f6f511dd69f4f008f5defb"
+}
