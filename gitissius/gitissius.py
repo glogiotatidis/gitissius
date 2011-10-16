@@ -808,6 +808,12 @@ class ShowIssueCommand(GitissiusCommand):
                                                repr_name="Show Issue",
                                                help="Show an issue"
                                                )
+        self.parser.add_option("--all",
+                               action="store_true",
+                               default=False,
+                               help="Show all details, including comments"
+                               )
+
     def help():
         print "Usage:"
         print "\t%s show [issue_id]" % sys.argv[0]
@@ -826,17 +832,12 @@ class ShowIssueCommand(GitissiusCommand):
         # show
         issue.printme()
 
-        # if full show comments as well
-        try:
-            if args[1] == "full":
+        if options.all:
+            print '-' * 5
+            for comment in issue.comments:
+                comment.printme()
+
                 print '-' * 5
-                for comment in issue.comments:
-                    comment.printme()
-
-                    print '-' * 5
-
-        except IndexError:
-            pass
 
 class CommentIssueCommand(GitissiusCommand):
     """ Comment on an issue """
