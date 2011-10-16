@@ -1074,6 +1074,10 @@ class CloseIssueCommand(GitissiusCommand):
         issue = issue_manager.get(issue_id)
 
         # close issue
+        if issue.get_property('status').value == 'closed':
+            print " >", "Issue already closed"
+            return
+
         issue.get_property('status').value = 'closed'
         issue.get_property('updated_on').value = _now()
 
