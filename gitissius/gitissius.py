@@ -460,6 +460,8 @@ class CreatedOnProperty(DbProperty):
                                                 repr_name="Created On",
                                                 )
 
+        self.editable = False
+
     def interactive_edit(self, default=None):
         """
         Interactive edit.
@@ -487,6 +489,8 @@ class UpdatedOnProperty(DbProperty):
         super(UpdatedOnProperty, self).__init__(name="updated_on",
                                                 repr_name="Updated On",
                                                 )
+
+        self.editable = False
 
     def interactive_edit(self, default=None):
         """
@@ -554,8 +558,9 @@ class DbObject(object):
         """
         Interactive edit of issue properties.
         """
-        for item in self._properties:
-            item.interactive_edit()
+        for name in self._print_order:
+            prop = self.get_property(name)
+            prop.interactive_edit()
 
     def serialize(self, indent=0):
         """
