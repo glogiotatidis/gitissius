@@ -1,11 +1,11 @@
 {
-    "status": "new", 
+    "status": "closed", 
     "description": "E.g. list --filter=status__not:closed,status__not:new prints out all closed issues", 
     "title": "List --filter does not work correctly with multiple filters", 
     "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
     "created_on": "2011-10-14 20:06:30", 
     "assigned_to": "Giorgos Logiotatidis <seadog@sealabs.net>", 
-    "updated_on": "2011-10-14 20:06:29", 
+    "updated_on": "2011-10-16 14:25:06", 
     "type": "bug", 
     "id": "214980110a316f96b8a95b200a9b0d812ff141426ce139c739919fc7b37770d5"
 }
