@@ -1,11 +1,11 @@
 {
-    "status": "new", 
+    "status": "closed", 
     "description": "Add a 'mylist' command shortcut to 'myissues' command\n/", 
     "title": "Add a 'mylist' shortcut to 'myissues'", 
     "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
     "created_on": "2011-10-16 15:32:16", 
     "assigned_to": "Giorgos Logiotatidis <seadog@sealabs.net>", 
-    "updated_on": "2011-10-16 15:32:15", 
+    "updated_on": "2011-10-16 16:43:54", 
     "type": "feature", 
     "id": "c4455204bcf2b787c73f0f01232381551e6331b11b6623866a0b44c0489cc1ed"
 }
