@@ -1,0 +1,11 @@
+{
+    "status": "new", 
+    "description": "Add 'severity' to classify bugs", 
+    "title": "Add severity", 
+    "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
+    "created_on": "2011-10-16 14:55:40", 
+    "assigned_to": "Giorgos Logiotatidis <seadog@sealabs.net>", 
+    "updated_on": "2011-10-16 14:55:39", 
+    "type": "feature", 
+    "id": "89105ddfed5ffd2950ed8385b20a7fc2cdc84e054594a125fe9b02eabf5985b0"
+}
