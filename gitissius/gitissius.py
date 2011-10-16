@@ -859,7 +859,7 @@ class CommentIssueCommand(GitissiusCommand):
         issue = issue_manager.get(issue_id)
 
         # edit
-        comment = Comment(issue_id=issue_id)
+        comment = Comment(issue_id=issue.get_property('id').value)
         comment.interactive_edit()
 
         # add to repo
@@ -1157,8 +1157,19 @@ def _get_commiters():
     """
     commiters = gitshelve.git('log', '--pretty=format:"%an <%ae>"')
     commiters = set(commiters.split('"'))
-    commiters.remove('')
-    commiters.remove('\n')
+    try:
+        commiters.remove('')
+
+    except KeyError:
+        # no '', it's ok
+        pass
+    try:
+        commiters.remove('\n')
+
+    except KeyError:
+        # no '\n', it's ok
+        pass
+
     return commiters
 
 def _terminal_width():
