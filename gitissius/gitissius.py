@@ -1153,6 +1153,9 @@ def _print_issues(issues):
     for issue in issues:
         print fmt.format(**issue.properties)
 
+    print '-' * _terminal_width()
+    print "Total Issues: %d" % len(issues)
+
 def _current_user():
     return "%s <%s>" % (gitshelve.git('config', 'user.name'),
                         gitshelve.git('config', 'user.email')
