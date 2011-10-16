@@ -1,11 +1,11 @@
 {
-    "status": "new", 
+    "status": "closed", 
     "description": "'show' full does not show comments", 
     "title": "'show' full does not show comments", 
     "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
     "created_on": "2011-10-16 15:30:40", 
     "assigned_to": "Giorgos Logiotatidis <seadog@sealabs.net>", 
-    "updated_on": "2011-10-16 15:31:40", 
+    "updated_on": "2011-10-16 15:50:21", 
     "type": "bug", 
     "id": "55fcc91668749b9dcefc417eb0c62909e73c087e4ab2e41bd22d3119e2afea4f"
 }
