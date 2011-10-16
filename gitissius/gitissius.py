@@ -167,7 +167,7 @@ class TypeProperty(DbProperty):
                                            repr_name="Type",
                                            value="bug")
 
-    def interactive_edit(self, default="bug"):
+    def interactive_edit(self, default=None):
         """
         Interactive edit.
 
@@ -176,6 +176,10 @@ class TypeProperty(DbProperty):
         provided input.
         """
         readline.set_completer(SimpleCompleter(['bug', 'feature', 'help']).complete)
+
+        if not default:
+            default = self.value
+
         while True:
             status = raw_input('%s (%s) [b/f/h]: ' % \
                                (self.repr_name.capitalize(), default)
@@ -208,10 +212,10 @@ class TypeProperty(DbProperty):
         """
         Validate status value based on TYPE_STATES
         """
-        if self.value in self.TYPE_STATES_SHORTCUTS:
+        if self.value.lower() in self.TYPE_STATES_SHORTCUTS:
             self.value = self.TYPE_STATES_SHORTCUTS[self.value]
 
-        if self.value not in self.TYPE_STATES:
+        if self.value.lower() not in self.TYPE_STATES:
             raise PropertyValidationError("Invalid type. Type 'help' for help.")
 
         return True
@@ -241,7 +245,7 @@ class StatusProperty(DbProperty):
                                              repr_name="Status",
                                              value="New")
 
-    def interactive_edit(self, default="new"):
+    def interactive_edit(self, default=None):
         """
         Interactive edit.
 
@@ -254,6 +258,10 @@ class StatusProperty(DbProperty):
                 self.ISSUE_STATES + ["help"]
                 ).complete
             )
+
+        if not default:
+            default = self.value
+
         while True:
             status = raw_input('%s (%s) [n/a/i/c/h]: ' % \
                                (self.repr_name.capitalize(), default)
@@ -285,10 +293,10 @@ class StatusProperty(DbProperty):
         Validate status value based on ISSUE_STATES_SHORTCUTS and
         ISSUE_STATES.
         """
-        if self.value in self.ISSUE_STATES_SHORTCUTS.keys():
+        if self.value.lower() in self.ISSUE_STATES_SHORTCUTS.keys():
             self.value = self.ISSUE_STATES_SHORTCUTS[self.value]
 
-        if self.value not in self.ISSUE_STATES:
+        if self.value.lower() not in self.ISSUE_STATES:
             raise PropertyValidationError("Invalid Status. Type 'help' for help")
 
         return True
@@ -314,7 +322,10 @@ class DescriptionProperty(DbProperty):
     def printme(self):
         print "%s:\n  %s" % (self.repr_name, self.value.replace('\n', '\n  '))
 
-    def interactive_edit(self, default=''):
+    def interactive_edit(self, default=None):
+        if not default:
+            default = self.value
+
         while True:
             description = ''
             print "Description (End with a line containing only '.'): "
@@ -676,17 +687,17 @@ class IssueManager(object):
                 cmd = name.split("__")
                 name = cmd[0]
 
-                operators = [lambda x,y: x.lower() in y.lower()]
+                operators = [lambda x, y: x.lower() in y.lower()]
 
                 if "exact" in cmd[1:]:
-                    operators += [lambda x,y: x == y]
+                    operators += [lambda x, y: x == y]
 
                 if "startswith" in cmd[1:]:
-                    operators += [lambda x,y: y.startswith(x)]
+                    operators += [lambda x, y: y.startswith(x)]
 
                 for key in matching_keys:
                     try:
-                        result = reduce(lambda x,y: x==y==True,
+                        result = reduce(lambda x, y: x==y==True,
                                         map(lambda x: x(value, self.issuedb[key].properties[name].value),
                                             operators
                                             )
@@ -774,6 +785,10 @@ class NewIssueCommand(GitissiusCommand):
 
         # edit
         issue.interactive_edit()
+
+        if not _verify("Create issue (y)? ", default='y'):
+            print " >", "Issue discarded"
+            return
 
         # add to repo
         git_repo[issue.path] = issue.serialize(indent=4)
@@ -893,6 +908,10 @@ class EditIssueCommand(GitissiusCommand):
         # edit
         issue.interactive_edit()
 
+        if not _verify("Edit issue (y)? ", default='y'):
+            print " >", "Issue discarded"
+            return
+
         # add to repo
         git_repo[issue.path] = issue.serialize(indent=4)
 
@@ -971,9 +990,21 @@ class ListIssuesCommand(GitissiusCommand):
         self.parser.add_option("--filter",
                                default=None,
                                help="Filter result using key")
+        self.parser.add_option("--all",
+                               default=False,
+                               action="store_true",
+                               help="List all issues, " \
+                               "including closed and invalid"
+                               )
 
     def _execute(self, options, args):
-        filters = []
+        if options.all:
+            filters = []
+
+        else:
+            # default filters, to filter out invalid and closed issues
+            filters = [{'status__not':'closed'}, {'status__not':'invalid'}]
+
         if options.filter:
             for fltr in options.filter.split(","):
                 key, value = fltr.split(':')
@@ -994,10 +1025,26 @@ class ListMyIssuesCommand(GitissiusCommand):
         self.parser = optparse.OptionParser()
         self.parser.add_option("--sort",
                                help="Sort results using key")
+        self.parser.add_option("--all",
+                               action="store_true",
+                               default=False,
+                               help="Show all my issues, " \
+                               "including closed and invalid"
+                               )
 
     def _execute(self, options, args):
         user_email = gitshelve.git('config', 'user.email')
-        issues = issue_manager.filter(rules=[{'assigned_to': user_email}],
+
+        if options.all:
+            rules = [{'assigned_to': user_email}]
+
+        else:
+            rules = [{'assigned_to': user_email},
+                     {'status__not': 'closed'},
+                     {'status__not': 'invalid'}
+                     ]
+
+        issues = issue_manager.filter(rules=rules,
                                       operator="and",
                                       sort_key=options.sort
                                       )
@@ -1139,6 +1186,25 @@ def _now():
     n = datetime.utcnow()
     return datetime(year=n.year, month=n.month, day=n.day,
                     hour=n.hour, minute=n.minute, second=n.second)
+
+def _verify(text, default=None):
+    while True:
+        reply = raw_input(text)
+        reply = reply.strip().lower()
+
+        if default and reply == '':
+            reply='y'
+
+        if reply in ['y', 'n', 'yes', 'no']:
+            break
+
+        print "Please answer '(y)es' no '(n)o'"
+
+    if reply in ['y', 'yes']:
+        return True
+
+    else:
+        return False
 
 def usage(available_commands):
     USAGE = "\nGitissius v%s\n" % VERSION
