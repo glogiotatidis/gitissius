@@ -1,0 +1,11 @@
+{
+    "status": "new", 
+    "description": "'List' and 'myissues' command should list 'closed' or 'invalid' issues by default. Instead provide a '--all' flag to list them all", 
+    "title": "'list' and 'myissues' command shouldn't list 'closed' or 'invalid' issues by default", 
+    "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
+    "created_on": "2011-10-16 14:25:44", 
+    "assigned_to": "Giorgos Logiotatidis <seadog@sealabs.net>", 
+    "updated_on": "2011-10-16 14:25:43", 
+    "type": "bug", 
+    "id": "946611d74cb1923368a54a0049641872b56af96c977d3baea1bc4e86609456f9"
+}
