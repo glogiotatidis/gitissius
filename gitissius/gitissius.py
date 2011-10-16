@@ -1233,7 +1233,7 @@ def _verify(text, default=None):
         return False
 
 def usage(available_commands):
-    USAGE = "\nGitissius v%s\n" % VERSION
+    USAGE = "Gitissius v%s\n\n" % VERSION
     USAGE += "Available commands: \n"
 
     for cmd in available_commands.values():
@@ -1265,7 +1265,7 @@ def main():
 
     except IndexError:
         # no command given
-        parser.print_help()
+        print usage(available_commands)
         sys.exit()
 
     if not 'gitissius' in gitshelve.git('branch'):
@@ -1286,8 +1286,8 @@ def main():
         available_commands[command](sys.argv[2:])
 
     except KeyError:
-        print "Invalid command"
-        raise
+        print " >", "Invalid command"
+        print usage(available_commands)
 
     git_repo.close()
 
