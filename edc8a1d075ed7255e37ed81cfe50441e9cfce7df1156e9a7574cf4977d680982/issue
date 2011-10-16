@@ -1,0 +1,11 @@
+{
+    "status": "new", 
+    "description": "Display total number of bugs", 
+    "title": "When 'list' display total number of bugs listed", 
+    "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
+    "created_on": "2011-10-16 16:48:54", 
+    "assigned_to": "Giorgos Logiotatidis <seadog@sealabs.net>", 
+    "updated_on": "2011-10-16 16:48:51", 
+    "type": "bug", 
+    "id": "edc8a1d075ed7255e37ed81cfe50441e9cfce7df1156e9a7574cf4977d680982"
+}
