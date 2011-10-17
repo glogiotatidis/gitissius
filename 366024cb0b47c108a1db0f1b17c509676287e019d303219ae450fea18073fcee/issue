@@ -1,5 +1,5 @@
 {
-    "status": "new", 
+    "status": "assigned", 
     "description": "UpdatedOnProperty must be unified with CreatedOnProperty. Just changed names", 
     "title": "UpdatedOnProperty must be unified with CreatedOnProperty", 
     "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
