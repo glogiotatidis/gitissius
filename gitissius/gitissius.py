@@ -1113,11 +1113,8 @@ class PullCommand(GitissiusCommand):
             gitshelve.git('stash', 'pop')
 
         except gitshelve.GitError, error:
-            if error.stderr == 'Nothing to apply\n':
-                # no worries
-                pass
-            else:
-                raise error
+            # no worries, no stash to apply
+            pass
 
 class ShellCommand(GitissiusCommand):
     """
