@@ -1,0 +1,11 @@
+{
+    "status": "new", 
+    "description": "Created_on and Updated_On does not update", 
+    "title": "Created_on and Updated_On does not update", 
+    "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
+    "created_on": "None", 
+    "assigned_to": "None", 
+    "updated_on": "None", 
+    "type": "bug", 
+    "id": "7ec4ec6cd3e13cc5ec5a2277af3c3d632858b499f08e71153ccdd470cc386035"
+}
