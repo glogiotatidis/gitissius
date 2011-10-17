@@ -1249,7 +1249,7 @@ def _print_issues(issues):
     # 40% for title
     title_size = int(twidth * .4)
     status_size = 8 if not colorama else 17
-    id_size = 5 if not colorama else 12
+    id_size = 5
     type_size = 7 if not colorama else 16
     assigned_to_size = twidth - title_size - id_size - status_size - type_size
     assigned_to_size -= 13 if not colorama else -5
