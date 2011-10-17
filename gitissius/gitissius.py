@@ -1109,7 +1109,15 @@ class PullCommand(GitissiusCommand):
         gitshelve.git('checkout', branch)
 
         # pop stashed changes
-        gitshelve.git('stash', 'pop')
+        try:
+            gitshelve.git('stash', 'pop')
+
+        except gitshelve.GitError, error:
+            if error.stderr == 'Nothing to apply\n':
+                # no worries
+                pass
+            else:
+                raise error
 
 class ShellCommand(GitissiusCommand):
     """
