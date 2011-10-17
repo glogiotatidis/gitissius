@@ -20,6 +20,10 @@ import hashlib
 import string
 from datetime import datetime
 
+# needed for enabling / disabling colorama
+ORIGINAL_STDOUT = sys.stdout
+ORIGINAL_STDERR = sys.stderr
+
 try:
     import colorama
     colorama.init(autoreset=True)
@@ -34,7 +38,18 @@ readline.parse_and_bind('tab: complete')
 git_repo = None
 issue_manager = None
 
+def _disable_colorama(fn):
+    # if colorama is present, pause it
+    def _foo(*args, **kwargs):
+        if colorama:
+            sys.stdout = ORIGINAL_STDOUT
 
+        fn(*args, **kwargs)
+
+        if colorama:
+            colorama.init(autoreset=True)
+
+    return _foo
 
 class SimpleCompleter(object):
     """
@@ -164,9 +179,15 @@ class DbProperty(object):
 
             self.value = value
 
-            self.validate_value()
+            try:
+                self.validate_value()
+            except PropertyValidationError, error:
+                print error
+                continue
+            else:
+                break
 
-            return self.value
+        return self.value
 
     def set_value(self, value):
         """
@@ -237,7 +258,7 @@ class TypeProperty(DbProperty):
 
         return value
 
-
+    @_disable_colorama
     def interactive_edit(self, default=None):
         """
         Interactive edit.
@@ -342,6 +363,7 @@ class StatusProperty(DbProperty):
 
         return value
 
+    @_disable_colorama
     def interactive_edit(self, default=None):
         """
         Interactive edit.
@@ -383,7 +405,9 @@ class StatusProperty(DbProperty):
                 print " >", error
 
             else:
-                return self.value
+                break
+
+        return self.value
 
     def validate_value(self):
         """
@@ -421,6 +445,7 @@ class DescriptionProperty(DbProperty):
                              self.repr('value').replace('\n', '\n  ')
                              )
 
+    @_disable_colorama
     def interactive_edit(self, default=None):
         if not default:
             default = self.value
@@ -489,6 +514,7 @@ class AssignedToProperty(DbProperty):
                                                  repr_name="Assigned To"
                                                  )
 
+    @_disable_colorama
     def interactive_edit(self, default=None):
         super(AssignedToProperty, self).\
                                   interactive_edit(default,
@@ -509,6 +535,7 @@ class ReportedFromProperty(DbProperty):
                                                    value=_current_user()
                                                    )
 
+    @_disable_colorama
     def interactive_edit(self, default=None):
         super(ReportedFromProperty, self).\
                                     interactive_edit(default=default,
@@ -528,6 +555,7 @@ class TitleProperty(DbProperty):
                                             repr_name="Title"
                                             )
 
+    @_disable_colorama
     def interactive_edit(self, default=None):
         if not default:
             default = self.value
@@ -561,6 +589,7 @@ class CreatedOnProperty(DbProperty):
 
         self.editable = False
 
+    @_disable_colorama
     def interactive_edit(self, default=None):
         """
         Interactive edit.
@@ -591,6 +620,7 @@ class UpdatedOnProperty(DbProperty):
 
         self.editable = False
 
+    @_disable_colorama
     def interactive_edit(self, default=None):
         """
         Interactive edit.
