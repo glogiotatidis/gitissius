@@ -17,6 +17,7 @@ import sys
 import json
 import readline
 import hashlib
+import string
 from datetime import datetime
 
 try:
@@ -32,6 +33,8 @@ readline.parse_and_bind('tab: complete')
 
 git_repo = None
 issue_manager = None
+
+
 
 class SimpleCompleter(object):
     """
@@ -103,7 +106,7 @@ class IssueIDConflict(Exception):
 
 class DbProperty(object):
     """
-    Issue Property Generic Object
+    Property Generic Object
     """
 
     def __init__(self, name, repr_name, value=None):
@@ -118,7 +121,7 @@ class DbProperty(object):
         # if colorama is presend set colors
         if colorama:
             self._color = {
-                'repr_name': '',
+                'repr_name': colorama.Fore.WHITE + colorama.Style.BRIGHT,
                 'value': '',
                 }
 
@@ -129,7 +132,9 @@ class DbProperty(object):
         value = getattr(self, attr)
 
         if colorama:
-            value = self._color.get(attr, '') + value + colorama.Fore.RESET
+            color = self._color.get(attr, None)
+            if color:
+                value = color + value + colorama.Fore.RESET
 
         return value
 
@@ -212,6 +217,27 @@ class TypeProperty(DbProperty):
                                            repr_name="Type",
                                            value="bug")
 
+    def repr(self, attr):
+        value = getattr(self, attr)
+
+        if attr == 'value':
+            value = value.capitalize()
+
+            if colorama:
+                if self.value == 'bug':
+                    value = colorama.Fore.YELLOW + value
+
+                elif self.value == 'feature':
+                    value = colorama.Fore.GREEN + value
+
+                value += colorama.Style.RESET_ALL
+
+        else:
+            return super(TypeProperty, self).repr(attr)
+
+        return value
+
+
     def interactive_edit(self, default=None):
         """
         Interactive edit.
@@ -240,7 +266,7 @@ class TypeProperty(DbProperty):
                 self.help()
                 continue
 
-            self.value = status
+            self.value = status.lower()
 
             try:
                 self.validate_value()
@@ -290,6 +316,32 @@ class StatusProperty(DbProperty):
                                              repr_name="Status",
                                              value="New")
 
+    def repr(self, attr):
+        value = getattr(self, attr)
+
+        if attr == 'value':
+            value = value.capitalize()
+
+            if colorama:
+                if self.value == 'new':
+                    value = colorama.Fore.YELLOW + value
+
+                elif self.value == 'assigned':
+                    value = colorama.Fore.GREEN + value
+
+                elif self.value == 'invalid':
+                    value = colorama.Fore.WHITE + value
+
+                elif self.value == 'closed':
+                    value = colorama.Fore.WHITE + value
+
+                value += colorama.Style.RESET_ALL
+
+        else:
+            return super(StatusProperty, self).repr(attr)
+
+        return value
+
     def interactive_edit(self, default=None):
         """
         Interactive edit.
@@ -322,7 +374,7 @@ class StatusProperty(DbProperty):
                 self.help()
                 continue
 
-            self.value = status
+            self.value = status.lower()
 
             try:
                 self.validate_value()
@@ -762,7 +814,10 @@ class IssueManager(object):
                 for key in matching_keys:
                     try:
                         result = reduce(lambda x, y: x==y==True,
-                                        map(lambda x: x(value, self.issuedb[key].properties[name].value),
+                                        map(lambda x: x(value,
+                                                        self.issuedb[key].\
+                                                        properties[name].value
+                                                        ),
                                             operators
                                             )
                                         )
@@ -1193,31 +1248,37 @@ def _print_issues(issues):
 
     # 40% for title
     title_size = int(twidth * .4)
-    status_size = 6 if not colorama else 9
-    id_size = 5 if not colorama else 15
-    assigned_to_size = twidth - title_size - status_size - id_size - 10
+    status_size = 8 if not colorama else 17
+    id_size = 5 if not colorama else 12
+    type_size = 7 if not colorama else 16
+    assigned_to_size = twidth - title_size - id_size - status_size - type_size
+    assigned_to_size -= 13 if not colorama else -5
 
-    fmt = "{id:%s.%ss} %s|%s {title:%s.%ss} %s|%s {assigned_to:%s.%ss} %s|%s {status:%s.%ss} " % \
-          (id_size, id_size, colorama.Fore.WHITE, colorama.Fore.RESET, title_size,
-           title_size, colorama.Fore.WHITE, colorama.Fore.RESET, assigned_to_size, assigned_to_size,
-           colorama.Fore.WHITE,  colorama.Fore.RESET, status_size, status_size)
+    fmt = "{id:%s.%ss} | {title:%s.%ss} | {assigned_to:%s.%ss} | {type:%s.%ss} | {status:%s.%ss} " % \
+          (id_size, id_size,
+           title_size, title_size,
+           assigned_to_size, assigned_to_size,
+           type_size, type_size,
+           status_size, status_size)
 
 
-    # fields to be printer
+    # fields to be printed
     table_fields = {'id': 'ID',
                     'title':'Title',
                     'status':'Status',
+                    'type':'Type',
                     'assigned_to':'Assigned To'
                     }
 
     if colorama:
-        for key, value in table_fields.iteritems():
-            table_fields[key] = colorama.Fore.WHITE + value
+        for key in ['type', 'status']:
+            table_fields[key] = colorama.Fore.RESET + table_fields[key] +\
+                                colorama.Style.RESET_ALL
 
     print fmt.format(**table_fields)
-    print '-' * _terminal_width()
 
-    for id, issue in issues.iteritems():
+    print '-' * _terminal_width()
+    for issue in issues:
         print fmt.format(**issue.printmedict())
 
     print '-' * _terminal_width()
