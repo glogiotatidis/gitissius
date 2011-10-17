@@ -1,0 +1,11 @@
+{
+    "status": "new", 
+    "description": "Tab completion does not work", 
+    "title": "Tab completion does not work on 'type'", 
+    "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
+    "created_on": "None", 
+    "assigned_to": "None", 
+    "updated_on": "None", 
+    "type": "bug", 
+    "id": "d4350dbca7869ba0191388bff3b2ec2dc0db33e65ee3d7546f3580be4ec0a053"
+}
