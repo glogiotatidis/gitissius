@@ -1,0 +1,11 @@
+{
+    "status": "new", 
+    "description": "Shouldn't show everything in bold", 
+    "title": "'show' shows everything in bold", 
+    "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
+    "created_on": "None", 
+    "assigned_to": "None", 
+    "updated_on": "None", 
+    "type": "bug", 
+    "id": "04d53bc2e18736beddffda268c4ced3eab484c9aff547a4f249063c0eca7d953"
+}
