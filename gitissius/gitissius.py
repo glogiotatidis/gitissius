@@ -1094,13 +1094,23 @@ class PullCommand(GitissiusCommand):
 
     def _execute(self, options, args):
         # save current branch name
-        branch = gitshelve.git('name-rev', '--name-only', 'HEAD')
+        branch = gitshelve.git('name-rev', '--name-only', 'HEAD') or 'master'
 
         # stash changes
-        gitshelve.git('stash')
+        try:
+            gitshelve.git('stash')
 
-        # switch branches
-        gitshelve.git('checkout', 'gitissius')
+        except gitshelve.GitError, error:
+            if 'You do not have the initial commit yet' in error.stderr:
+                # don't worry, we just created 'gitissius' branch
+                pass
+
+            else:
+                raise
+
+        else:
+            # switch branches
+            gitshelve.git('checkout', 'gitissius')
 
         # pull updates
         gitshelve.git('pull', 'origin', 'gitissius')
@@ -1245,21 +1255,13 @@ class InstallCommand(GitissiusCommand):
 
     def __init__(self):
         super(InstallCommand, self).__init__(name="install",
-                                          repr_name="Install",
-                                          help="Install Gitissius in current repositoy"
-                                          )
+                                             repr_name="Install",
+                                             help="Install Gitissius "\
+                                             "in current repositoy"
+                                             )
 
     def _execute(self, options, args):
-        cwd = os.getcwd()
-
-        while not os.path.exists(os.path.join(cwd, ".git")):
-            cwd, extra = os.path.split(cwd)
-
-            if not extra:
-                print "Unable to find a git repository. "
-                print "Make sure you ran `git init` at some point."
-                return 1
-
+        cwd = _find_repo_root()
         mydir = os.path.join(cwd, ".gitissius")
 
         if os.path.exists(mydir):
@@ -1390,6 +1392,18 @@ def _verify(text, default=None):
     else:
         return False
 
+def _find_repo_root():
+    cwd = os.getcwd()
+
+    while not os.path.exists(os.path.join(cwd, ".git")):
+        cwd, extra = os.path.split(cwd)
+
+        if not extra:
+            raise Exception("Unable to find a git repository. ")
+
+    return cwd
+
+
 def usage(available_commands):
     USAGE = "Gitissius v%s\n\n" % VERSION
     USAGE += "Available commands: \n"
@@ -1433,6 +1447,13 @@ def main():
             # remote branch exists
             # create a local copy
             gitshelve.git('branch', 'gitissius', 'origin/gitissius')
+
+        else:
+            # create an empty repo
+            gitshelve.git('symbolic-ref', 'HEAD', 'refs/heads/gitissius')
+            cwd = _find_repo_root()
+            os.unlink(os.path.join(cwd, '.git', 'index'))
+            gitshelve.git('clean', '-fdx')
 
     # initialize gitshelve
     git_repo = gitshelve.open(branch='gitissius')
