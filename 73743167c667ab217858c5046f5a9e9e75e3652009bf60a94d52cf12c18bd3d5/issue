@@ -1,0 +1,11 @@
+{
+    "status": "new", 
+    "description": "Pressing tab, first time provides a full completion, next times repeats completion over and over, leading to unwanted results.", 
+    "title": "Tab completion, completes full values over and over", 
+    "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
+    "created_on": "2011-10-18 18:28:18", 
+    "assigned_to": "Giorgos Logiotatidis <seadog@sealabs.net>", 
+    "updated_on": "2011-10-18 18:28:18", 
+    "type": "bug", 
+    "id": "73743167c667ab217858c5046f5a9e9e75e3652009bf60a94d52cf12c18bd3d5"
+}
