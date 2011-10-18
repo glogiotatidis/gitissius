@@ -149,7 +149,7 @@ class DbProperty(object):
         if colorama:
             color = self._color.get(attr, None)
             if color:
-                value = color + value + colorama.Fore.RESET
+                value = color + value + colorama.Style.RESET_ALL
 
         return value
 
