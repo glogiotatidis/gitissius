@@ -32,7 +32,7 @@ except ImportError:
 
 import gitshelve
 
-VERSION = "0.1.1"
+VERSION = "0.1.2"
 readline.parse_and_bind('tab: complete')
 
 git_repo = None
