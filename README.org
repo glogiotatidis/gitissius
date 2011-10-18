@@ -49,6 +49,10 @@ Features
 
 ** Installation
 
+*** PyPI (recommended)
+~$ sudo pip install gitissius
+
+*** Bleeding Edge
 1. ~$ git clone http://github.com/glogiotatidis/gitissius
 2. ~$ cd gitissius && sudo python setup.py install
 
