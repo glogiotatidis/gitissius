@@ -16,6 +16,7 @@ setup(
     classifiers = [
         "Topic :: Software Development :: Bug Tracking",
         "Development Status :: 4 - Beta",
+        "License :: Freely Distributable",
         "License :: OSI Approved :: GNU General Public License (GPL)"
         ],
     entry_points = {
