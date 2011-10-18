@@ -69,6 +69,19 @@ Features
    - *List issues assigned to you*
      - ~$ git issius myissues
 
+   - *List issues sorted*
+     - ~$ git issius list --sort=status
+     - ~$ git issius list --sort=assigned_to
+
+   - *List issues assigned to 'foo@example.com', sort by status*
+     - ~$ git issius list --filter=assigned_to:foo@example.com --sort=status
+
+   - *List issues assigned everyone but 'foo@example.com'*
+     - ~$ git issius list --filter=assigned__not:foo@example.com
+
+   - *List all issues but new or assigned*
+     - ~$ git issius list --all --filter=status__not:new,status__not:assigned
+
    - *Show an issue*
      - ~$ git issius show [issue id]
 
@@ -86,6 +99,12 @@ Features
 
 *** Tips and tricks
  - Use 'TAB' for completion in fields.
+ - Install 'colorama' package for colors
+ - Sorting and Filtering actions can refer to the following fields:
+   assigned_to, created_on, updated_to, reported_from, status, id,
+   title
+ - Filtering supports '__not', '__exact' and '__startswith' on text
+   properties.
 
 ** Community
 
