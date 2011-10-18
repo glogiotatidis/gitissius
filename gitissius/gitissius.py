@@ -602,8 +602,9 @@ class CreatedOnProperty(DbProperty):
 
         else:
             default = _now()
+            self.value = default
 
-        return super(CreatedOnProperty, self).interactive_edit(default)
+        return super(CreatedOnProperty, self).interactive_edit(default=default)
 
 
 class UpdatedOnProperty(DbProperty):
@@ -628,6 +629,8 @@ class UpdatedOnProperty(DbProperty):
         Call interactive_edit from DbProperty and always provide
         current date and time as default value.
         """
+        self.value = _now()
+
         return super(UpdatedOnProperty, self).\
                interactive_edit(default=_now())
 
