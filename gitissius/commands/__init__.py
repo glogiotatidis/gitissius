@@ -1,0 +1,42 @@
+import os
+import optparse
+
+class GitissiusCommand(object):
+    """
+    Gitissius Generic Command Object
+    """
+    aliases = []
+    help = ''
+
+    def __init__(self):
+        self.parser = optparse.OptionParser()
+
+    def __call__(self, args):
+        (options, args) = self.parser.parse_args(args)
+        return self._execute(options, args)
+
+    def _execute(self, options, args):
+        assert False
+
+# import commands
+available_commands = []
+command = {}
+
+for filename in os.listdir('commands'):
+    (filename, ext) = (filename[:-3], filename[-3:])
+    if ext == '.py' and not filename == '__init__':
+        try:
+            cmd = __import__('commands.'+filename,
+                                 globals(), locals(),
+                                 ['Command'], -1
+                                 )
+
+            available_commands.append(cmd.Command.name)
+
+            command[cmd.Command.name] = cmd.Command()
+            for alias in cmd.Command.aliases:
+                command[alias] = cmd.Command()
+
+        except ImportError, e:
+            print "Error importing command:", filename
+            print e
