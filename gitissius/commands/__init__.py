@@ -23,20 +23,22 @@ available_commands = []
 command = {}
 here = lambda path: os.path.join(os.path.realpath(os.path.dirname(__file__)), path)
 
-for filename in os.listdir(here('.')):
-    (filename, ext) = (filename[:-3], filename[-3:])
-    if ext == '.py' and not filename == '__init__':
-        try:
-            cmd = __import__('commands.'+filename,
-                             globals(), locals(),
-                             ['Command'], -1
-                             )
-            available_commands.append(cmd.Command.name)
+def import_commands():
+    for filename in os.listdir(here('.')):
+        (filename, ext) = (filename[:-3], filename[-3:])
+        if ext == '.py' and not filename == '__init__':
+            # try:
 
-            command[cmd.Command.name] = cmd.Command()
-            for alias in cmd.Command.aliases:
-                command[alias] = cmd.Command()
+                cmd = __import__('gitissius.commands.'+filename,
+                                 globals(), locals(),
+                                 ['Command'], -1
+                                 )
+                available_commands.append(cmd.Command.name)
 
-        except ImportError, e:
-            print "Error importing command:", filename
-            print e
+                command[cmd.Command.name] = cmd.Command()
+                for alias in cmd.Command.aliases:
+                    command[alias] = cmd.Command()
+
+            # except ImportError, e:
+            #     print "Error importing command:", filename
+            #     print e
