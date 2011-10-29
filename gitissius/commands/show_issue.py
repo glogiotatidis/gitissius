@@ -1,4 +1,6 @@
 import commands
+import gitissius
+import sys
 
 class Command(commands.GitissiusCommand):
     """ Show an issue """
@@ -15,7 +17,7 @@ class Command(commands.GitissiusCommand):
                                help="Show all details, including comments"
                                )
 
-    def _help():
+    def help(self):
         print "Usage:"
         print "\t%s show [issue_id]" % sys.argv[0]
 
@@ -25,10 +27,10 @@ class Command(commands.GitissiusCommand):
             issue_id = args[0]
 
         except IndexError:
-            self._help()
+            self.help()
             return
 
-        issue = issue_manager.get(issue_id)
+        issue = gitissius.issue_manager.get(issue_id)
 
         # show
         issue.printme()
