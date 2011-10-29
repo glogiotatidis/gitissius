@@ -1,0 +1,11 @@
+{
+    "status": "new", 
+    "description": "ad", 
+    "title": "foo", 
+    "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
+    "created_on": "2011-10-29 22:43:35", 
+    "assigned_to": "None", 
+    "updated_on": "None", 
+    "type": "bug", 
+    "id": "065f0bada246c30dd536e940b5465ef6c778323f2df755c80db49dacd39653c6"
+}
