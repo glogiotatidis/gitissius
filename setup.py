@@ -12,7 +12,7 @@ setup(
     license = "Mixed",
     keywords = "bug, tracking, git, distributed",
     url="http://github.com/glogiotatidis/gitissius",
-    packages=['gitissius'],
+    packages=['gitissius', 'gitissius.commands'],
     classifiers = [
         "Topic :: Software Development :: Bug Tracking",
         "Development Status :: 4 - Beta",
