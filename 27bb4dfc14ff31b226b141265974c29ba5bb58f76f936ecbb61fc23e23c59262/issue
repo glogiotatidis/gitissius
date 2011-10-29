@@ -1,11 +1,11 @@
 {
-    "status": "new", 
+    "status": "closed", 
     "description": "Add 'delete' command", 
     "title": "Add 'delete'", 
     "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
     "created_on": "None", 
     "assigned_to": "Giorgos Logiotatidis <seadog@sealabs.net>", 
-    "updated_on": "None", 
+    "updated_on": "2011-10-29 23:42:59", 
     "type": "feature", 
     "id": "27bb4dfc14ff31b226b141265974c29ba5bb58f76f936ecbb61fc23e23c59262"
 }
