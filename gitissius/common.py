@@ -1,4 +1,24 @@
-from gitissius import colorama
+from datetime import datetime
+import sys
+import readline
+
+readline.parse_and_bind('tab: complete')
+
+# needed for enabling / disabling colorama
+ORIGINAL_STDOUT = sys.stdout
+ORIGINAL_STDERR = sys.stderr
+
+try:
+    import colorama
+    colorama.init(autoreset=True)
+except ImportError:
+    colorama = False
+
+import gitshelve
+
+# initialize gitshelve
+git_repo = gitshelve.open(branch='gitissius')
+
 
 class SimpleCompleter(object):
     """
@@ -156,3 +176,55 @@ def print_issues(issues):
 
     print '-' * terminal_width()
     print "Total Issues: %d" % len(issues)
+
+
+def disable_colorama(fn):
+    # if colorama is present, pause it
+
+    def _foo(*args, **kwargs):
+        if colorama:
+            sys.stdout = ORIGINAL_STDOUT
+
+        fn(*args, **kwargs)
+
+        if colorama:
+            colorama.init(autoreset=True)
+
+    return _foo
+
+class PropertyValidationError(Exception):
+    """
+    Raised on IssuesProperty validation errors
+    """
+    pass
+
+class IssueIDNotFound(Exception):
+    pass
+
+class IssueIDConflict(Exception):
+    def __init__(self, issues):
+        self.issues = issues
+        self._threshold = self._calculate_threshold()
+
+        return super(IssueIDConflict, self).__init__()
+
+    def _calculate_threshold(self):
+        first = self.issues[0].get_property('id').value
+        second = self.issues[1].get_property('id').value
+
+        for i in range(len(first)):
+            if first[i] != second[i]:
+                break
+
+        return i
+
+    def __str__(self):
+        msg = ''
+        for issue in self.issues:
+            msg += "[%s]%s: %s\n" %\
+                   (issue.get_property('id').value[:self._threshold],
+                    issue.get_property('id').value[self._threshold:],
+                    issue.get_property('title')
+                    )
+
+        return msg.strip()
