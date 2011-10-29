@@ -1,7 +1,4 @@
 import commands
-
-#from common import print_issues
-#from gitissius import issue_manager, colorama
 import common
 import gitissius
 
@@ -38,7 +35,13 @@ class Command(commands.GitissiusCommand):
 
         if options.filter:
             for fltr in options.filter.split(","):
-                key, value = fltr.split(':')
+                try:
+                    key, value = fltr.split(':')
+                except ValueError:
+                    # filter parameters in worng format
+                    print "Wrong filter argument:", fltr
+                    return
+
                 filters.append({key:value})
 
         common.print_issues(gitissius.issue_manager.filter(sort_key=options.sort,
