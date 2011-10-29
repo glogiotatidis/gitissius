@@ -1,11 +1,11 @@
 {
-    "status": "assigned", 
+    "status": "closed", 
     "description": "UpdatedOnProperty must be unified with CreatedOnProperty. Just changed names", 
     "title": "UpdatedOnProperty must be unified with CreatedOnProperty", 
     "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
     "created_on": "2011-10-16 17:09:20", 
     "assigned_to": "Giorgos Logiotatidis <seadog@sealabs.net>", 
-    "updated_on": "2011-10-16 17:09:18", 
+    "updated_on": "2011-10-29 23:43:07", 
     "type": "bug", 
     "id": "366024cb0b47c108a1db0f1b17c509676287e019d303219ae450fea18073fcee"
 }
