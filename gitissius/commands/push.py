@@ -1,4 +1,5 @@
 import commands
+import gitshelve
 
 class Command(commands.GitissiusCommand):
     """
