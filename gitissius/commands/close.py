@@ -1,5 +1,5 @@
-import common
-import commands
+import gitissius.commands as commands
+import gitissius.common as common
 
 class Command(commands.GitissiusCommand):
     """

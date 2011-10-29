@@ -1,6 +1,6 @@
-import commands
-import common
-from gitissius import issue_manager
+import gitissius.commands as commands
+import gitissius.common as common
+from gitissius.gitissius import issue_manager
 
 class Command(commands.GitissiusCommand):
     """ Edit an issue """

@@ -1,7 +1,7 @@
-import commands
-import common
-import gitissius
-import gitshelve
+import gitissius.gitissius as gitissius
+import gitissius.commands as commands
+import gitissius.common as common
+import gitissius.gitshelve as gitshelve
 
 class Command(commands.GitissiusCommand):
     """

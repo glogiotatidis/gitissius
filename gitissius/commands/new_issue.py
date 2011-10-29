@@ -1,5 +1,5 @@
-import common
-import commands
+import gitissius.common as common
+import gitissius.commands as commands
 
 class Command(commands.GitissiusCommand):
     """ Create new issue """
@@ -8,7 +8,7 @@ class Command(commands.GitissiusCommand):
     help="Create an issue"
 
     def _execute(self, options, args):
-        from gitissius import Issue
+        from gitissius.gitissius import Issue
 
         try:
             title = args[0]
@@ -28,10 +28,6 @@ class Command(commands.GitissiusCommand):
         common.git_repo[issue.path] = issue.serialize(indent=4)
 
         # commit
-        common.git_repo.commit("Added issue %s" % issue.get_property('id'))
-
-        print "Created issue: %s" % issue.get_property('id')
-
         common.git_repo.commit("Added issue %s" % issue.get_property('id'))
 
         print "Created issue: %s" % issue.get_property('id')

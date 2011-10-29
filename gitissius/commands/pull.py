@@ -1,5 +1,5 @@
-import commands
-import gitshelve
+import gitissius.commands as commands
+import gitissius.gitshelve as gitshelve
 
 class Command(commands.GitissiusCommand):
     """

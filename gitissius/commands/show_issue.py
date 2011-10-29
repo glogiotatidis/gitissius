@@ -1,5 +1,5 @@
-import commands
-import gitissius
+import gitissius.commands as commands
+import gitissius.gitissius as gitissius
 import sys
 
 class Command(commands.GitissiusCommand):
@@ -17,7 +17,7 @@ class Command(commands.GitissiusCommand):
                                help="Show all details, including comments"
                                )
 
-    def help(self):
+    def _help(self):
         print "Usage:"
         print "\t%s show [issue_id]" % sys.argv[0]
 
@@ -27,7 +27,7 @@ class Command(commands.GitissiusCommand):
             issue_id = args[0]
 
         except IndexError:
-            self.help()
+            self._help()
             return
 
         issue = gitissius.issue_manager.get(issue_id)

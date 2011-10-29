@@ -1,6 +1,6 @@
-import commands
-import common
-import gitissius
+import gitissius.gitissius as gitissius
+import gitissius.commands as commands
+import gitissius.common as common
 
 class Command(commands.GitissiusCommand):
     """
@@ -37,6 +37,7 @@ class Command(commands.GitissiusCommand):
             for fltr in options.filter.split(","):
                 try:
                     key, value = fltr.split(':')
+
                 except ValueError:
                     # filter parameters in worng format
                     print "Wrong filter argument:", fltr

@@ -1,4 +1,4 @@
-import commands
+import gitissius.commands as commands
 
 class Command(commands.GitissiusCommand):
     """

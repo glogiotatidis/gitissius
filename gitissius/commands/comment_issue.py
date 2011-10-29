@@ -1,7 +1,7 @@
 import sys
 
-from gitissius import issue_manager
-import commands
+from gitissius.gitissius import issue_manager
+import gitissius.commands as commands
 
 class Command(commands.GitissiusCommand):
     """ Comment on an issue """
