@@ -1,4 +1,7 @@
 import commands
+import common
+import gitissius
+import gitshelve
 
 class Command(commands.GitissiusCommand):
     """
@@ -32,8 +35,8 @@ class Command(commands.GitissiusCommand):
                      {'status__not': 'invalid'}
                      ]
 
-        issues = issue_manager.filter(rules=rules,
-                                      operator="and",
-                                      sort_key=options.sort
-                                      )
-        _print_issues(issues)
+        issues = gitissius.issue_manager.filter(rules=rules,
+                                                operator="and",
+                                                sort_key=options.sort
+                                                )
+        common.print_issues(issues)
