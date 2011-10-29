@@ -1,3 +1,6 @@
+import sys
+
+from gitissius import issue_manager
 import commands
 
 class Command(commands.GitissiusCommand):
@@ -14,8 +17,10 @@ class Command(commands.GitissiusCommand):
         # find issue
         try:
             issue_id = args[0]
+
         except IndexError:
             self._help()
+            return
 
         issue = issue_manager.get(issue_id)
 
@@ -24,7 +29,8 @@ class Command(commands.GitissiusCommand):
         comment.interactive_edit()
 
         # add to repo
-        git_repo[comment.path] = comment.serialize(indent=4)
+        common.git_repo[comment.path] = comment.serialize(indent=4)
 
         # commit
-        git_repo.commit("Added comment on issue %s" % issue.get_property('id'))
+        common.git_repo.commit("Added comment on issue %s" % issue.get_property('id'))
+

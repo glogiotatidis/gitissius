@@ -1,4 +1,6 @@
 import commands
+import common
+from gitissius import issue_manager
 
 class Command(commands.GitissiusCommand):
     """ Edit an issue """
@@ -26,14 +28,14 @@ class Command(commands.GitissiusCommand):
         # edit
         issue.interactive_edit()
 
-        if not _verify("Edit issue (y)? ", default='y'):
+        if not common.verify("Edit issue (y)? ", default='y'):
             print " >", "Issue discarded"
             return
 
         # add to repo
-        git_repo[issue.path] = issue.serialize(indent=4)
+        common.git_repo[issue.path] = issue.serialize(indent=4)
 
         # commit
-        git_repo.commit("Edited issue %s" % issue.get_property('id'))
+        common.git_repo.commit("Edited issue %s" % issue.get_property('id'))
 
         print "Edited issue: %s" % issue.get_property('id')

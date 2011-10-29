@@ -1,3 +1,4 @@
+import common
 import commands
 
 class Command(commands.GitissiusCommand):
@@ -27,9 +28,9 @@ class Command(commands.GitissiusCommand):
         issue.get_property('updated_on').value = _now()
 
         # add to repo
-        git_repo[issue.path] = issue.serialize(indent=4)
+        common.git_repo[issue.path] = issue.serialize(indent=4)
 
         # commit
-        git_repo.commit("Closed issue %s" % issue.get_property('id'))
+        common.git_repo.commit("Closed issue %s" % issue.get_property('id'))
 
         print "Closed issue: %s" % issue.get_property('id')
