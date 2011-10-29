@@ -22,7 +22,7 @@ import common
 import commands
 import properties
 
-VERSION = "0.1.2"
+VERSION = "0.1.3"
 
 class DbObject(object):
     """
@@ -312,6 +312,8 @@ def usage(available_commands):
     return USAGE
 
 def main():
+    commands.import_commands()
+
     try:
         command = sys.argv[1]
 
