@@ -1,11 +1,11 @@
 {
-    "status": "new", 
+    "status": "closed", 
     "description": "Issue list used by IssueManager should be cached (e.g. pickled to disk, loaded on startup) to reduce action times", 
     "title": "Improve performance", 
     "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
     "created_on": "2011-10-30 00:14:33", 
     "assigned_to": "None", 
-    "updated_on": "2011-10-30 00:14:33", 
+    "updated_on": "2011-10-30 01:00:06", 
     "type": "feature", 
     "id": "4209228b594bd8aa258e1fdd4bccb3a34a680728a09eb3d1fde34980901b1ee4"
 }
