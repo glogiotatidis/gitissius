@@ -14,6 +14,8 @@ class Command(commands.GitissiusCommand):
         print "\t%s comment [issue_id]" % sys.argv[0]
 
     def _execute(self, options, args):
+        from gitissius.database import Comment
+
         # find issue
         try:
             issue_id = args[0]
@@ -24,6 +26,8 @@ class Command(commands.GitissiusCommand):
 
         issue = common.issue_manager.get(issue_id)
 
+        print "Commenting on:", issue.get_property('title').value
+
         # edit
         comment = Comment(issue_id=issue.get_property('id').value)
         comment.interactive_edit()
@@ -33,4 +37,6 @@ class Command(commands.GitissiusCommand):
 
         # commit
         common.git_repo.commit("Added comment on issue %s" % issue.get_property('id'))
+
+        print "Comment issue: %s" % issue.get_property('id')
 
