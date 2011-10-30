@@ -1,5 +1,6 @@
 from datetime import datetime
 import sys
+import os
 import readline
 
 readline.parse_and_bind('tab: complete')
