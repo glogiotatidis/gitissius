@@ -11,7 +11,7 @@ Your code lives in your git repo. Your documentation lives in your git
 repo. Why aren't your bugs in your git repo?
 
 Git provides a really great version control system. Unlike other
-systems though it does not provide any functionallality related to
+systems though it does not provide any functionality related to
 issue / bug tracking. You have to rely on 3rd party systems like
 [[http://www.bugzilla.org][Bugzilla]] or GitHub issue tracker to track your bugs.
 
