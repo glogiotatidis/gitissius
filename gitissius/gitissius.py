@@ -63,6 +63,9 @@ def main():
             os.unlink(os.path.join(cwd, '.git', 'index'))
             gitshelve.git('clean', '-fdx')
 
+        # open the repo now, since init was done
+        common.git_repo = gitshelve.open(branch='gitissius')
+
     try:
         if command not in commands.command.keys():
             raise common.InvalidCommand(command)
