@@ -56,6 +56,25 @@ def main():
             # create a local copy
             gitshelve.git('branch', 'gitissius', 'origin/gitissius')
 
+            # stash changes
+            try:
+                gitshelve.git('stash')
+
+            except gitshelve.GitError, error:
+                # TODO
+                pass
+
+            branch = gitshelve.git('name-rev', '--name-only', 'HEAD') or 'master'
+            gitshelve.git('checkout', 'gitissius')
+            gitshelve.git('checkout', branch)
+
+            try:
+                gitshelve.git('stash', 'pop')
+
+            except gitshelve.GitError, error:
+                # TODO
+                pass
+
         else:
             # create an empty repo
             gitshelve.git('symbolic-ref', 'HEAD', 'refs/heads/gitissius')
