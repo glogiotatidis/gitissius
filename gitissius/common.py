@@ -14,11 +14,20 @@ try:
 except ImportError:
     colorama = False
 
-import gitshelve
 
-# initialize gitshelve
-git_repo = gitshelve.open(branch='gitissius')
+def disable_colorama(fn):
+    # if colorama is present, pause it
 
+    def _foo(*args, **kwargs):
+        if colorama:
+            sys.stdout = ORIGINAL_STDOUT
+
+        fn(*args, **kwargs)
+
+        if colorama:
+            colorama.init(autoreset=True)
+
+    return _foo
 
 class SimpleCompleter(object):
     """
@@ -35,6 +44,7 @@ class SimpleCompleter(object):
         if state == 0:
             # This is the first time for this text, so build a match list.
             if text:
+                print "f"
                 self.matches = [s
                                 for s in self.options
                                 if s and text in s.lower()]
@@ -178,19 +188,10 @@ def print_issues(issues):
     print "Total Issues: %d" % len(issues)
 
 
-def disable_colorama(fn):
-    # if colorama is present, pause it
-
-    def _foo(*args, **kwargs):
-        if colorama:
-            sys.stdout = ORIGINAL_STDOUT
-
-        fn(*args, **kwargs)
-
-        if colorama:
-            colorama.init(autoreset=True)
-
-    return _foo
+class InvalidCommand(Exception):
+    def __init__(self, command):
+        self.command = command
+        return super(UnknownCommand, self).__init__()
 
 class PropertyValidationError(Exception):
     """
@@ -228,3 +229,13 @@ class IssueIDConflict(Exception):
                     )
 
         return msg.strip()
+
+import gitshelve
+import database
+
+# initialize gitshelve
+git_repo = gitshelve.open(branch='gitissius')
+
+# initialize issue manager
+issue_manager = database.IssueManager()
+
