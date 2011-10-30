@@ -280,7 +280,7 @@ class IssueManager(object):
                 matching_keys.append(key)
 
         if len(matching_keys) == 0:
-            raise IssueIDNotFound(issue_id)
+            raise common.IssueIDNotFound(issue_id)
 
         elif len(matching_keys) > 1:
             raise common.IssueIDConflict(map(lambda x: self.issuedb[x], matching_keys))
