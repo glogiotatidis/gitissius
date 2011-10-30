@@ -1,6 +1,7 @@
 import common
 import hashlib
 import readline
+
 readline.parse_and_bind('tab: complete')
 
 class DbProperty(object):
@@ -15,7 +16,7 @@ class DbProperty(object):
         self.name = name
         self.editable = editable
         self.allow_empty = allow_empty
-        self.completion = []
+        self.completion = completion
         self.value = default
 
         # if colorama is presend set colors
@@ -69,8 +70,8 @@ class DbProperty(object):
             try:
                 self.validate_value()
 
-            except PropertyValidationError, error:
-                print error
+            except common.PropertyValidationError, error:
+                print " >", error
                 continue
 
             else:
@@ -98,7 +99,9 @@ class DbProperty(object):
         PropertyValidationError.
         """
         if not self.allow_empty and not self.value:
-            raise PropertyValidationError("%s cannot be empty" % self.name)
+            raise common.PropertyValidationError("%s cannot be empty." %\
+                                                 self.name.capitalize()
+                                                 )
 
     def serialize(self):
         """
@@ -109,134 +112,6 @@ class DbProperty(object):
         return {'name': self.name,
                 'value': unicode(self.value)
                 }
-
-class TypeProperty(DbProperty):
-    """
-    Type Property defines the type of issue (bug, feature)
-    """
-    TYPE_STATES = ['bug', 'feature']
-    TYPE_STATES_SHORTCUTS = {
-        'b':'bug',
-        'f':'feature'
-        }
-
-    def __init__(self):
-        """
-        TypeProperty Initializer
-        """
-        super(TypeProperty, self).__init__(name="type",
-                                           repr_name="Type",
-                                           value="bug")
-
-
-
-
-    def help(self):
-        """ Type Help """
-        print " > Type can have the following values: " + \
-              ', '.join(self.TYPE_STATES)
-
-class StatusProperty(DbProperty):
-    """
-    Status Property holds the status of an Issue
-    """
-    ISSUE_STATES = [ 'new', 'assigned', 'invalid', 'closed' ]
-    ISSUE_STATES_SHORTCUTS = {
-        'n':'new',
-        'a':'assigned',
-        'i':'invalid',
-        'c':'closed'
-        }
-
-    def repr(self, attr):
-        value = getattr(self, attr)
-
-        if attr == 'value':
-            value = value.capitalize()
-
-            if common.colorama:
-                if self.value == 'new':
-                    value = common.colorama.Fore.YELLOW + value
-
-                elif self.value == 'assigned':
-                    value = common.colorama.Fore.GREEN + value
-
-                elif self.value == 'invalid':
-                    value = common.colorama.Fore.WHITE + value
-
-                elif self.value == 'closed':
-                    value = common.colorama.Fore.WHITE + value
-
-                value += common.colorama.Style.RESET_ALL
-
-        else:
-            return super(StatusProperty, self).repr(attr)
-
-        return value
-
-    @common.disable_colorama
-    def interactive_edit(self, default=None):
-        """
-        Interactive edit.
-
-        Prompt user for input. Provide shortcuts for states. If
-        shortcut gets used, convert it to a proper value. Validate
-        provided input.
-        """
-        readline.set_completer(
-            common.SimpleCompleter(
-                self.ISSUE_STATES + ["help"]
-                ).complete
-            )
-
-        if not default:
-            default = self.value
-
-        while True:
-            status = raw_input('%s (%s) [n/a/i/c/h]: ' % \
-                               (self.repr_name.capitalize(), default)
-                               )
-
-            if not status:
-                status = default
-
-            status = status.lower()
-
-            if status == 'h' or status == 'help':
-                # provide help
-                self.help()
-                continue
-
-            self.value = status.lower()
-
-            try:
-                self.validate_value()
-
-            except PropertyValidationError, error:
-                print " >", error
-
-            else:
-                break
-
-        return self.value
-
-    def validate_value(self):
-        """
-        Validate status value based on ISSUE_STATES_SHORTCUTS and
-        ISSUE_STATES.
-        """
-        if self.value.lower() in self.ISSUE_STATES_SHORTCUTS.keys():
-            self.value = self.ISSUE_STATES_SHORTCUTS[self.value]
-
-        if self.value.lower() not in self.ISSUE_STATES:
-            raise PropertyValidationError("Invalid Status. Type 'help' for help")
-
-        return True
-
-    def help(self):
-        """ Status Help """
-        print " > Status can have the following values: " + \
-              ', '.join(self.ISSUE_STATES)
 
 class Option(DbProperty):
     def __init__(self, name, options, default=None):
@@ -292,17 +167,12 @@ class Option(DbProperty):
 
             status = status.lower()
 
-            if status == 'h' or status == 'help':
-                # provide help
-                self.help()
-                continue
-
             self.value = status.lower()
 
             try:
                 self.validate_value()
 
-            except PropertyValidationError, error:
+            except common.PropertyValidationError, error:
                 print " >", error
 
             else:
@@ -314,14 +184,17 @@ class Option(DbProperty):
         """
         Validate status value based on TYPE_STATES
         """
-#        if self.value.lower() in map(lambda x: self.options[x].get('shortcut', '')):
-#            self.value = self.options[self.value]
+        shortcut_reverse = {}
+        for key in self.options.keys():
+            shortcut_reverse[self.options[key].get('shortcut')] = key
 
-#        if self.value.lower() not in self.TYPE_STATES:
-#            raise PropertyValidationError("Invalid type. Type 'help' for help.")
+        if self.value.lower() in shortcut_reverse.keys():
+            self.value = shortcut_reverse[self.value.lower()]
+
+        if self.value.lower() not in self.options.keys():
+            raise common.PropertyValidationError("Invalid type.")
 
         return True
-
 
 class Description(DbProperty):
     """
@@ -362,7 +235,7 @@ class Description(DbProperty):
             try:
                 self.validate_value()
 
-            except PropertyValidationError, error:
+            except common.PropertyValidationError, error:
                 print " >", error
                 continue
 
@@ -435,7 +308,7 @@ class Date(DbProperty):
         if not self.value and self.auto_add_now:
             self.value = common.now()
 
-        elif self.value and self.auto_now:
+        elif self.auto_now:
             self.value = common.now()
 
         elif self.editable:
