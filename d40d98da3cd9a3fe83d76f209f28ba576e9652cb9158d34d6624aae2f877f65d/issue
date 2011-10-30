@@ -1,0 +1,11 @@
+{
+    "status": "new", 
+    "description": "sdf", 
+    "title": "foo", 
+    "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
+    "created_on": "2011-10-30 00:21:06", 
+    "assigned_to": "None", 
+    "updated_on": "2011-10-30 00:21:06", 
+    "type": "bug", 
+    "id": "d40d98da3cd9a3fe83d76f209f28ba576e9652cb9158d34d6624aae2f877f65d"
+}
