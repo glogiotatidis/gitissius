@@ -8,7 +8,7 @@ class Command(commands.GitissiusCommand):
     help="Create an issue"
 
     def _execute(self, options, args):
-        from gitissius.gitissius import Issue
+        from gitissius.database import Issue
 
         try:
             title = args[0]
