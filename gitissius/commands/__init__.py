@@ -1,3 +1,4 @@
+import sys
 import os
 import optparse
 
@@ -23,13 +24,17 @@ available_commands = []
 command = {}
 here = lambda path: os.path.join(os.path.realpath(os.path.dirname(__file__)), path)
 
+for key in ['commands', 'common', 'gitshelve', 'database']:
+    if key in sys.modules:
+        sys.modules['gitissius.%s' % key] = sys.modules[key]
+
 def import_commands():
     for filename in os.listdir(here('.')):
         (filename, ext) = (filename[:-3], filename[-3:])
         if ext == '.py' and not filename == '__init__':
-            # try:
+            try:
 
-                cmd = __import__('gitissius.commands.'+filename,
+                cmd = __import__(filename,
                                  globals(), locals(),
                                  ['Command'], -1
                                  )
@@ -39,6 +44,6 @@ def import_commands():
                 for alias in cmd.Command.aliases:
                     command[alias] = cmd.Command()
 
-            # except ImportError, e:
-            #     print "Error importing command:", filename
-            #     print e
+            except ImportError, e:
+                print "Error importing command:", filename
+                print e
