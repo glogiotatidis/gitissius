@@ -1,0 +1,7 @@
+{
+    "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
+    "created_on": "2011-10-30 00:59:35", 
+    "issue_id": "4209228b594bd8aa258e1fdd4bccb3a34a680728a09eb3d1fde34980901b1ee4", 
+    "description": "Testing pickle cache performance", 
+    "id": "ab9771b70b20ca1991fe421f44192db572ffa57980600516eabd84c5e9a55129"
+}
