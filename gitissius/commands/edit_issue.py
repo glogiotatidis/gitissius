@@ -1,12 +1,12 @@
 import gitissius.commands as commands
 import gitissius.common as common
-from gitissius.gitissius import issue_manager
+import gitissius.common as common
 
 class Command(commands.GitissiusCommand):
     """ Edit an issue """
 
     name="edit"
-    aliases = []
+    aliases = ['e']
     help="Edit an issue"
 
     def _help(self):
@@ -23,7 +23,7 @@ class Command(commands.GitissiusCommand):
         except IndexError:
             self._help()
 
-        issue = issue_manager.get(issue_id)
+        issue = common.issue_manager.get(issue_id)
 
         # edit
         issue.interactive_edit()

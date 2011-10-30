@@ -1,5 +1,5 @@
 import gitissius.commands as commands
-import gitissius.gitissius as gitissius
+import gitissius.common as common
 import sys
 
 class Command(commands.GitissiusCommand):
@@ -30,7 +30,7 @@ class Command(commands.GitissiusCommand):
             self._help()
             return
 
-        issue = gitissius.issue_manager.get(issue_id)
+        issue = common.issue_manager.get(issue_id)
 
         # show
         issue.printme()

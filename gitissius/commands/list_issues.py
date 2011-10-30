@@ -1,4 +1,3 @@
-import gitissius.gitissius as gitissius
 import gitissius.commands as commands
 import gitissius.common as common
 
@@ -45,6 +44,6 @@ class Command(commands.GitissiusCommand):
 
                 filters.append({key:value})
 
-        common.print_issues(gitissius.issue_manager.filter(sort_key=options.sort,
-                                                           rules=filters)
+        common.print_issues(common.issue_manager.filter(sort_key=options.sort,
+                                                        rules=filters)
                             )

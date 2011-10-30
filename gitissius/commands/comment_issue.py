@@ -1,6 +1,6 @@
 import sys
 
-from gitissius.gitissius import issue_manager
+import gitissius.common as common
 import gitissius.commands as commands
 
 class Command(commands.GitissiusCommand):
@@ -22,7 +22,7 @@ class Command(commands.GitissiusCommand):
             self._help()
             return
 
-        issue = issue_manager.get(issue_id)
+        issue = common.issue_manager.get(issue_id)
 
         # edit
         comment = Comment(issue_id=issue.get_property('id').value)
