@@ -6,7 +6,7 @@ class Command(commands.GitissiusCommand):
     Close Issue
     """
     name = "close"
-    aliases = ["close", "c"]
+    aliases = ["c"]
     help="Close an issue"
 
     def _execute(self, options, args):
@@ -17,7 +17,7 @@ class Command(commands.GitissiusCommand):
         except IndexError:
             self.help()
 
-        issue = issue_manager.get(issue_id)
+        issue = common.issue_manager.get(issue_id)
 
         # close issue
         if issue.get_property('status').value == 'closed':
@@ -25,7 +25,7 @@ class Command(commands.GitissiusCommand):
             return
 
         issue.get_property('status').value = 'closed'
-        issue.get_property('updated_on').value = _now()
+        issue.get_property('updated_on').value = common.now()
 
         # add to repo
         common.git_repo[issue.path] = issue.serialize(indent=4)
