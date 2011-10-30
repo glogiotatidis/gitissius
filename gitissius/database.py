@@ -1,8 +1,11 @@
 """
 
 """
-import common
+import os.path
 import json
+import pickle
+
+import common
 import properties
 
 class DbObject(object):
@@ -191,11 +194,35 @@ class IssueManager(object):
     def _build_issuedb(self):
         self._issuedb = {}
 
-        for issue in common.git_repo.keys():
-            if not '/comments/' in issue:
-                # making sure that we don't treat comments as issues
-                obj = Issue.load(json.loads(common.git_repo[issue]))
-                self._issuedb[str(obj.get_property('id'))] = obj
+        # get current head
+        current_head = common.git_repo.current_head()
+
+        # check if we have cache for current head
+        path = os.path.join(common.find_repo_root(),
+                            '.git',
+                            'gitissius.%s.cache' % current_head
+                            )
+        loaded = False
+
+        if os.path.exists(path):
+            with open(path) as flp:
+                try:
+                    self._issuedb = pickle.load(flp)
+                    loaded = True
+
+                except:
+                    loaded = False
+
+        if not loaded:
+            for issue in common.git_repo.keys():
+                if not '/comments/' in issue:
+                    # making sure that we don't treat comments as issues
+                    obj = Issue.load(json.loads(common.git_repo[issue]))
+                    self._issuedb[str(obj.get_property('id'))] = obj
+
+
+            with open(path, "wb") as flp:
+                pickle.dump(self._issuedb, flp)
 
     def update_db(self):
         self._build_issuedb()
