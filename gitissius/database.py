@@ -221,6 +221,17 @@ class IssueManager(object):
                     self._issuedb[str(obj.get_property('id'))] = obj
 
 
+            # delete previous caches
+            for fln in os.listdir(os.path.join(common.find_repo_root(),
+                                              '.git')
+                                 ):
+                if fln.startswith('gitissius') and fln.endswith('.cache'):
+                    os.remove(os.path.join(common.find_repo_root(),
+                                           '.git',
+                                           fln)
+                              )
+
+            # create new
             with open(path, "wb") as flp:
                 pickle.dump(self._issuedb, flp)
 
