@@ -33,7 +33,7 @@ class Command(commands.GitissiusCommand):
         issue.delete()
 
         # commit
-        common.git_repo.commit("Delete issue %s" % issue.get_property('id'))
+        common.git_repo.commit("Deleted issue %s" % issue.get_property('id'))
 
         print "Deleted issue: %s" % issue.get_property('id')
 
