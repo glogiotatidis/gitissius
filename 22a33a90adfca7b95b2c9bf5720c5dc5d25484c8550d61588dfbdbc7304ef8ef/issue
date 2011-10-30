@@ -1,0 +1,11 @@
+{
+    "status": "new", 
+    "description": "Traceback (most recent call last):\n  File \"/usr/local/bin/git-issius\", line 9, in <module>\n    load_entry_point('Gitissius==0.1.3', 'console_scripts', 'git-issius')()\n  File \"/usr/local/lib/python2.6/dist-packages/Gitissius-0.1.3-py2.6.egg/gitissius/gitissius.py\", line 68, in main\n    raise common.InvalidCommand(command)\n  File \"/usr/local/lib/python2.6/dist-packages/Gitissius-0.1.3-py2.6.egg/gitissius/common.py\", line 194, in __init__\n    return super(UnknownCommand, self).__init__()\nNameError: global name 'UnknownCommand' is not defined", 
+    "title": "UnknownCommand not called correctly", 
+    "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
+    "created_on": "2011-10-30 17:00:27", 
+    "assigned_to": "Giorgos Logiotatidis <seadog@sealabs.net>", 
+    "updated_on": "2011-10-30 17:00:27", 
+    "type": "bug", 
+    "id": "22a33a90adfca7b95b2c9bf5720c5dc5d25484c8550d61588dfbdbc7304ef8ef"
+}
