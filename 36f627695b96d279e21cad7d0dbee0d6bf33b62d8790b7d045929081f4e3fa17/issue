@@ -1,0 +1,11 @@
+{
+    "status": "new", 
+    "description": "I have a \"feature\" assigned to \"None\" (thus not assigned).\n\nTyping 'git issius --filter=assigned_to:None,type__not:bug' does not work", 
+    "title": "Listing filters type__not:feature does not show bugs", 
+    "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
+    "created_on": "2011-10-30 00:10:41", 
+    "assigned_to": "None", 
+    "updated_on": "2011-10-30 00:10:41", 
+    "type": "bug", 
+    "id": "36f627695b96d279e21cad7d0dbee0d6bf33b62d8790b7d045929081f4e3fa17"
+}
