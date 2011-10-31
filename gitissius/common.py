@@ -202,7 +202,7 @@ def print_issues(issues):
 class InvalidCommand(Exception):
     def __init__(self, command):
         self.command = command
-        return super(UnknownCommand, self).__init__()
+        return super(InvalidCommand, self).__init__()
 
 class PropertyValidationError(Exception):
     """
