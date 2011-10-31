@@ -48,6 +48,13 @@ def main():
         print usage(commands.available_commands)
         sys.exit()
 
+    # check we are inside a git repo
+    try:
+        common.find_repo_root()
+    except common.GitRepoNotFound, error:
+        print error
+        sys.exit(1)
+
     if not 'gitissius' in gitshelve.git('branch'):
         # no local gitissius branch exists
         # check if there is a remote

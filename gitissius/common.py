@@ -85,7 +85,7 @@ def find_repo_root():
         cwd, extra = os.path.split(cwd)
 
         if not extra:
-            raise Exception("Unable to find a git repository. ")
+            raise GitRepoNotFound("Unable to find a git repository.")
 
     return cwd
 
@@ -198,6 +198,9 @@ def print_issues(issues):
     print '-' * terminal_width()
     print "Total Issues: %d" % len(issues)
 
+
+class GitRepoNotFound(Exception):
+    pass
 
 class InvalidCommand(Exception):
     def __init__(self, command):
