@@ -64,12 +64,29 @@ def main():
             gitshelve.git('branch', 'gitissius', 'origin/gitissius')
 
         else:
+            # save current branch name
+            branch = gitshelve.git('name-rev', '--name-only', 'HEAD') or 'master'
+
+            # stash changes
+            try:
+                gitshelve.git('stash')
+
+            except gitshelve.GitError, error:
+                pass
+
             # create an empty repo
             gitshelve.git('symbolic-ref', 'HEAD', 'refs/heads/gitissius')
             cwd = common.find_repo_root()
             os.unlink(os.path.join(cwd, '.git', 'index'))
             gitshelve.git('clean', '-fdx')
             gitshelve.git('commit', '--allow-empty', '-m', 'Initialization')
+            gitshelve.git('checkout', branch)
+
+            try:
+                gitshelve.git('stash', 'pop')
+
+            except gitshelve.GitError, error:
+                pass
 
         # open the repo now, since init was done
         common.git_repo = gitshelve.open(branch='gitissius')
