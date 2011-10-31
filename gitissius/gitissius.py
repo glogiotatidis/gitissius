@@ -59,7 +59,7 @@ def main():
         else:
             # create an empty repo
             gitshelve.git('symbolic-ref', 'HEAD', 'refs/heads/gitissius')
-            cwd = _common.find_repo_root()
+            cwd = common.find_repo_root()
             os.unlink(os.path.join(cwd, '.git', 'index'))
             gitshelve.git('clean', '-fdx')
 
