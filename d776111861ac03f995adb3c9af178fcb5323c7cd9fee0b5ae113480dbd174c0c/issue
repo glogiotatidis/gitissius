@@ -4,8 +4,8 @@
     "title": "Gitissius does not work without colorama", 
     "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
     "created_on": "2011-10-30 16:47:22", 
-    "assigned_to": "None", 
-    "updated_on": "2011-10-30 16:47:22", 
+    "assigned_to": "Giorgos Logiotatidis <seadog@sealabs.net>", 
+    "updated_on": "2011-10-31 09:05:45", 
     "type": "bug", 
     "id": "d776111861ac03f995adb3c9af178fcb5323c7cd9fee0b5ae113480dbd174c0c"
 }
