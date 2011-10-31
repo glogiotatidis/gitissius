@@ -1,11 +1,11 @@
 {
-    "status": "new", 
+    "status": "closed", 
     "description": "'pull' does not work on new/ empty repos", 
     "title": "'pull' does not work on new / empty repos", 
     "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
     "created_on": "None", 
     "assigned_to": "Giorgos Logiotatidis <seadog@sealabs.net>", 
-    "updated_on": "None", 
+    "updated_on": "2011-10-31 10:39:20", 
     "type": "bug", 
     "id": "9381c59bd6c5915ae49e296ceae610c2211584b35b7cf2c3defed6bfb625b4ee"
 }
