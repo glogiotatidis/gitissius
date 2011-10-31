@@ -88,15 +88,15 @@ class Issue(DbObject):
         self._properties =  [
             properties.Text(name='title', allow_empty=False),
             properties.Option(name='status',
-                              options={'new':{'shortcut':'n', 'color':common.colorama.Fore.YELLOW},
-                                       'assigned':{'shortcut':'a', 'color':common.colorama.Fore.GREEN},
-                                       'invalid':{'shortcut':'i', 'color':common.colorama.Fore.WHITE},
-                                       'closed':{'shortcut':'c', 'color':common.colorama.Fore.WHITE}
+                              options={'new':{'shortcut':'n', 'color':common.get_fore_color('YELLOW')},
+                                       'assigned':{'shortcut':'a', 'color':common.get_fore_color('GREEN')},
+                                       'invalid':{'shortcut':'i', 'color':common.get_fore_color('WHITE')},
+                                       'closed':{'shortcut':'c', 'color':common.get_fore_color('WHITE')}
                                        },
                               default='new'),
             properties.Option(name='type',
-                              options={'bug':{'shortcut':'b', 'color':common.colorama.Fore.YELLOW},
-                                       'feature':{'shortcut':'f', 'color':common.colorama.Fore.GREEN}
+                              options={'bug':{'shortcut':'b', 'color':common.get_fore_color('YELLOW')},
+                                       'feature':{'shortcut':'f', 'color':common.get_fore_color('GREEN')}
                                        },
                               default='bug'),
             properties.Text(name='assigned_to', completion=common.get_commiters()),

@@ -30,6 +30,17 @@ def disable_colorama(fn):
 
     return _foo
 
+def get_fore_color(color):
+    """
+    Return colorama foreground color 'color' if colorama is available,
+    else return None.
+    """
+    if colorama:
+        return getattr(colorama.Fore, color)
+
+    else:
+        return None
+
 class SimpleCompleter(object):
     """
     Completer to be used with readline to complete field values.
@@ -45,7 +56,6 @@ class SimpleCompleter(object):
         if state == 0:
             # This is the first time for this text, so build a match list.
             if text:
-                print "f"
                 self.matches = [s
                                 for s in self.options
                                 if s and text in s.lower()]
