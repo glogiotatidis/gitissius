@@ -62,6 +62,7 @@ def main():
             cwd = common.find_repo_root()
             os.unlink(os.path.join(cwd, '.git', 'index'))
             gitshelve.git('clean', '-fdx')
+            gitshelve.git('commit', '--allow-empty', '-m', 'Initialization')
 
         # open the repo now, since init was done
         common.git_repo = gitshelve.open(branch='gitissius')
