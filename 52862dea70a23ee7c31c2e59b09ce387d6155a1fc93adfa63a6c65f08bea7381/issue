@@ -1,0 +1,11 @@
+{
+    "status": "new", 
+    "description": "When executing a gitissius commmand outside a git repo don't raise Exception and print traceback.\nInstead handle the error politely :)", 
+    "title": "When executing a gitissius command outside a git repo don't raise Exceptions", 
+    "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
+    "created_on": "2011-10-31 10:26:43", 
+    "assigned_to": "None", 
+    "updated_on": "2011-10-31 10:26:43", 
+    "type": "bug", 
+    "id": "52862dea70a23ee7c31c2e59b09ce387d6155a1fc93adfa63a6c65f08bea7381"
+}
