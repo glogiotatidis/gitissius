@@ -1,11 +1,11 @@
 {
-    "status": "new", 
+    "status": "closed", 
     "description": "sdfoisdhnf", 
     "title": "Tetsing", 
     "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
     "created_on": "2011-11-03 18:15:33", 
     "assigned_to": "JC <bikkit@gmail.com>", 
-    "updated_on": "2011-11-03 18:15:33", 
+    "updated_on": "2011-11-03 18:16:41", 
     "type": "feature", 
     "id": "0d44a3327f71b36c4de160830e4da801457d3389d7c937abd8481783f359a564"
 }
