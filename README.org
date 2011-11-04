@@ -46,6 +46,8 @@ Features
  - Easilly Extensible
  - Python, no extra libraries required
  - Cross Platform
+ - Create and edit bugs offline
+ - Distributed
 
 ** Installation
 
