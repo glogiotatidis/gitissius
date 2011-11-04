@@ -200,7 +200,10 @@ class IssueManager(object):
         # check if we have cache for current head
         path = os.path.join(common.find_repo_root(),
                             '.git',
-                            'gitissius.%s.cache' % current_head
+                            'gitissius.%s%s.cache' %\
+                            (current_head,
+                             '.colorama' if common.colorama else ''
+                             )
                             )
         loaded = False
 
