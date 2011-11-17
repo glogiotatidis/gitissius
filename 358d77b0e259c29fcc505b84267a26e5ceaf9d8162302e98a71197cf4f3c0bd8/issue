@@ -1,0 +1,11 @@
+{
+    "status": "new", 
+    "description": "Add git hook to close issues when commit message contains 'closes <id>'", 
+    "title": "Add git hook to close issues when commit message contains 'closes <id>'", 
+    "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
+    "created_on": "2011-11-17 21:08:36", 
+    "assigned_to": "None", 
+    "updated_on": "2011-11-17 21:08:36", 
+    "type": "feature", 
+    "id": "358d77b0e259c29fcc505b84267a26e5ceaf9d8162302e98a71197cf4f3c0bd8"
+}
