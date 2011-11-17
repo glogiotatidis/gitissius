@@ -1,0 +1,11 @@
+{
+    "status": "new", 
+    "description": "When a user tries to pull from 'origin' before the first gitissius 'push' (i.e. before initializing origin) when exception happens\n\nTraceback (most recent call last):\n  File \"/usr/local/bin/git-issius\", line 9, in <module>\n    load_entry_point('Gitissius==0.1.5', 'console_scripts', 'git-issius')()\n  File \"/usr/local/lib/python2.6/dist-packages/Gitissius-0.1.5-py2.6.egg/gitissius/gitissius.py\", line 98, in main\n    commands.command[command](sys.argv[2:])\n  File \"/usr/local/lib/python2.6/dist-packages/Gitissius-0.1.5-py2.6.egg/gitissius/commands/__init__.py\", line 17, in __call__\n    return self._execute(options, args)\n  File \"/usr/local/lib/python2.6/dist-packages/Gitissius-0.1.5-py2.6.egg/gitissius/commands/pull.py\", line 32, in _execute\n    gitshelve.git('pull', 'origin', 'gitissius')\n  File \"/usr/local/lib/python2.6/dist-packages/Gitissius-0.1.5-py2.6.egg/gitissius/gitshelve.py\", line 128, in git\n    raise GitError(cmd, args, kwargs, err)\ngitissius.gitshelve.GitError: Git command failed: git pull (): fatal: Couldn't find remote ref gitissius\nfatal: The remote end hung up unexpectedly", 
+    "title": "When pull from not 'gitissius'lized repo, exception happens", 
+    "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
+    "created_on": "2011-11-17 21:05:46", 
+    "assigned_to": "None", 
+    "updated_on": "2011-11-17 21:05:46", 
+    "type": "bug", 
+    "id": "47368fe820401ee7e1e910da0e6c3bfbc756e68d0bd7ce4d3c24518a6a812299"
+}
