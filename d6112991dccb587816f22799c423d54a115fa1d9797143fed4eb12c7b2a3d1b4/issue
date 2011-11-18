@@ -1,11 +1,12 @@
 {
-    "status": "new", 
-    "description": "Add an 'update' command that 'pull's and 'push'es in one \"click\"", 
+    "status": "closed", 
+    "severity": "low", 
     "title": "Add 'update' command", 
     "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
     "created_on": "2011-11-17 21:04:32", 
     "assigned_to": "None", 
-    "updated_on": "2011-11-17 21:04:32", 
+    "updated_on": "2011-11-18 19:15:50", 
     "type": "feature", 
-    "id": "d6112991dccb587816f22799c423d54a115fa1d9797143fed4eb12c7b2a3d1b4"
+    "id": "d6112991dccb587816f22799c423d54a115fa1d9797143fed4eb12c7b2a3d1b4", 
+    "description": "Add an 'update' command that 'pull's and 'push'es in one \"click\""
 }
