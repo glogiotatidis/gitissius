@@ -6,7 +6,7 @@ class Command(commands.GitissiusCommand):
     Pull issues to repo
     """
     name="pull"
-    help="Pull issues to origin master"
+    help="Pull issues to origin"
 
     def _execute(self, options, args):
         # save current branch name
