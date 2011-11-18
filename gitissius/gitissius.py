@@ -102,7 +102,7 @@ def main():
         print usage(commands.available_commands)
 
     except common.IssueIDConflict, error:
-        print " >", "Error: Conflicting IDS"
+        print " >", "Error: Conflicting IDs"
         print error
 
     except common.IssueIDNotFound, error:
