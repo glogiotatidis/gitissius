@@ -37,16 +37,8 @@ def usage(available_commands):
 
     return USAGE
 
-def main():
+def initialize():
     commands.import_commands()
-
-    try:
-        command = sys.argv[1]
-
-    except IndexError:
-        # no command given
-        print usage(commands.available_commands)
-        sys.exit()
 
     # check we are inside a git repo
     try:
@@ -91,6 +83,20 @@ def main():
         # open the repo now, since init was done
         common.git_repo = gitshelve.open(branch='gitissius')
 
+def close():
+    common.git_repo.close()
+
+def main():
+    initialize()
+
+    try:
+        command = sys.argv[1]
+
+    except IndexError:
+        # no command given
+        print usage(commands.available_commands)
+        sys.exit()
+
     try:
         if command not in commands.command.keys():
             raise common.InvalidCommand(command)
@@ -112,7 +118,7 @@ def main():
         print "\n >", "Aborted..."
 
     finally:
-        common.git_repo.close()
+        close()
 
 if __name__ == '__main__':
     main()
