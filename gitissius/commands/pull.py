@@ -1,5 +1,6 @@
 import gitissius.commands as commands
 import gitissius.gitshelve as gitshelve
+import gitissius.common as common
 
 class Command(commands.GitissiusCommand):
     """
@@ -41,3 +42,7 @@ class Command(commands.GitissiusCommand):
         except gitshelve.GitError, error:
             # no worries, no stash to apply
             pass
+
+        # build issue list cache
+        common.issue_manager.update_db()
+
