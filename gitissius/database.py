@@ -99,6 +99,12 @@ class Issue(DbObject):
                                        'feature':{'shortcut':'f', 'color':common.get_fore_color('GREEN')}
                                        },
                               default='bug'),
+            properties.Option(name='severity',
+                              options={'high':{'shortcut':'h', 'color':common.colorama.Fore.RED},
+                                       'medium':{'shortcut':'m', 'color':common.colorama.Fore.YELLOW},
+                                       'low':{'shortcut':'l', 'color':common.colorama.Fore.WHITE}
+                                        },
+                              default='low'),
             properties.Text(name='assigned_to', completion=common.get_commiters()),
             properties.Text(name='reported_from', completion=common.get_commiters(), default=common.current_user()),
             properties.Date(name='created_on', editable=False, auto_add_now=True),
@@ -109,7 +115,7 @@ class Issue(DbObject):
         self._comments = []
         super(Issue, self).__init__(*args, **kwargs)
 
-        self._print_order = ['id', 'title', 'type', 'reported_from', 'assigned_to',
+        self._print_order = ['id', 'title', 'type', 'severity', 'reported_from', 'assigned_to',
                              'created_on', 'updated_on', 'status', 'description'
                              ]
 
