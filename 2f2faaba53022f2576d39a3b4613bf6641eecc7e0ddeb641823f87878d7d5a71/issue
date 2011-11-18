@@ -1,11 +1,12 @@
 {
-    "status": "assigned", 
-    "description": "When 'pull'ing issues also build cache to enhance user experience", 
+    "status": "closed", 
+    "severity": "low", 
     "title": "When 'pull'ing issues also build cache", 
     "reported_from": "Giorgos Logiotatidis <seadog@sealabs.net>", 
     "created_on": "2011-10-30 10:24:54", 
     "assigned_to": "Giorgos Logiotatidis <seadog@sealabs.net>", 
-    "updated_on": "2011-10-30 10:24:54", 
+    "updated_on": "2011-11-18 19:17:02", 
     "type": "feature", 
-    "id": "2f2faaba53022f2576d39a3b4613bf6641eecc7e0ddeb641823f87878d7d5a71"
+    "id": "2f2faaba53022f2576d39a3b4613bf6641eecc7e0ddeb641823f87878d7d5a71", 
+    "description": "When 'pull'ing issues also build cache to enhance user experience"
 }
