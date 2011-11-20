@@ -22,7 +22,7 @@ import commands
 import properties
 import database
 
-VERSION = "0.1.5"
+VERSION = "0.1.6"
 
 def usage(available_commands):
     USAGE = "Gitissius v%s\n\n" % VERSION
