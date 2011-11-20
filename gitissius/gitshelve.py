@@ -114,8 +114,8 @@ def git(cmd, *args, **kwargs):
             input = kwargs['input']
         else:
             input = ''
-       
-        out, err = proc.communicate(input) 
+
+        out, err = proc.communicate(input)
 
         returncode = proc.returncode
         restart = False
@@ -152,7 +152,7 @@ class gitbook:
             assert self.name is not None
             self.data = self.deserialize_data(self.shelf.get_blob(self.name))
         return self.data
-        
+
     def set_data(self, data):
         if data != self.data:
             self.name  = None
@@ -235,7 +235,7 @@ class gitshelve(dict):
         if not self.head:
             return
 
-        ls_tree = split(self.git('ls-tree', '-r', '-t', '-z', self.head),
+        ls_tree = split(self.git('ls-tree', '--full-tree', '-r', '-t', '-z', self.head),
                         '\0')
         for line in ls_tree:
             if not line:
@@ -348,7 +348,7 @@ class gitshelve(dict):
         accumulator = None
         if comment is None:
             accumulator = StringIO()
-        
+
         # Walk the objects now, creating and nesting trees until we end up
         # with a top-level tree.  We then create a commit out of this tree.
         tree = self.make_tree(self.objects, accumulator)
@@ -409,6 +409,7 @@ class gitshelve(dict):
             if make_dirs and not d.has_key(part):
                 d[part] = {}
             d = d[part]
+
         return d
 
     def get(self, key):
@@ -511,7 +512,7 @@ class gitshelve(dict):
 
     def __iter__(self):
         return self.iterkeys()
-    
+
     def iteritems(self):
         return self.walker('items', self.objects)
 
