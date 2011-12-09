@@ -100,9 +100,9 @@ class Issue(DbObject):
                                        },
                               default='bug'),
             properties.Option(name='severity',
-                              options={'high':{'shortcut':'h', 'color':common.colorama.Fore.RED},
-                                       'medium':{'shortcut':'m', 'color':common.colorama.Fore.YELLOW},
-                                       'low':{'shortcut':'l', 'color':common.colorama.Fore.WHITE}
+                              options={'high':{'shortcut':'h', 'color':common.get_fore_color('RED')},
+                                       'medium':{'shortcut':'m', 'color':common.get_fore_color('YELLOW')},
+                                       'low':{'shortcut':'l', 'color':common.get_fore_color('WHITE')}
                                         },
                               default='low'),
             properties.Text(name='assigned_to', completion=common.get_commiters()),
