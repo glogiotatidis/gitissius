@@ -47,6 +47,12 @@ def initialize():
         print error
         sys.exit(1)
 
+    if len(gitshelve.git('branch').strip()) == 0:
+        # user is trying to use gitissius on a repo that has no
+        # branch, just exit
+        print "Please create at least a branch before using gitissius"
+        sys.exit(1)
+
     if not 'gitissius' in gitshelve.git('branch'):
         # no local gitissius branch exists
         # check if there is a remote
