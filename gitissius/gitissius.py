@@ -74,10 +74,9 @@ def initialize():
 
             # create an empty repo
             gitshelve.git('symbolic-ref', 'HEAD', 'refs/heads/gitissius')
-            cwd = common.find_repo_root()
-            os.unlink(os.path.join(cwd, '.git', 'index'))
-            gitshelve.git('clean', '-fdx')
-            gitshelve.git('commit', '--allow-empty', '-m', 'Initialization')
+            # remove all tracked files, but keep untracked ones
+            gitshelve.git('rm', '--ignore-unmatch', '-rf', '*')
+            gitshelve.git('commit', '--allow-empty', '-m', 'Initialization of gitissius')
             gitshelve.git('checkout', branch)
 
             try:
