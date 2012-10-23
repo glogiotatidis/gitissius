@@ -7,7 +7,7 @@ class Command(commands.GitissiusCommand):
     """
     name = "push"
     aliases = []
-    help = "Push issues to origin remote"
+    help = "Push issues upstream"
 
     def _execute(self, options, args):
-        gitshelve.git('push', 'origin', 'gitissius')
+        gitshelve.git('push')

@@ -7,7 +7,7 @@ class Command(commands.GitissiusCommand):
     """
     name="update"
     aliases = ['u']
-    help="Pull issues from origin and then push"
+    help="Pull issues from upstream and then push"
 
     def _execute(self, options, args):
         from pull import Command as pull
