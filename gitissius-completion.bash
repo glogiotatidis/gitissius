@@ -118,12 +118,12 @@ __gitissius_complete_sort () {
 
 __gitissius_list_issues () {
    # Extract valid possibilities by parsing output of `git issius list`
-   opts=$(git issius list | head -n -2 | tail -n +3 | awk '{ print $1 }')
+   opts=$(git issius list --all | head -n -2 | tail -n +3 | awk '{ print $1 }')
 
    # If are more than one possibilities and no current input, show the complete list of issues
    if [ ${#opts} -gt 5 -a ${#cur} -eq 0 ]; then
       echo 1>&2
-      git issius list | head -n -2 1>&2
+      git issius list --all | head -n -2 1>&2
    fi
 
    echo $opts
