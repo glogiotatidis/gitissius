@@ -15,6 +15,10 @@ import os.path
 import shutil
 import sys
 import string
+import locale
+import logging
+logging.basicConfig(format='%(levelname)s:%(funcName)s:%(message)s',
+        level=logging.INFO)
 
 import gitshelve
 import common
@@ -23,6 +27,8 @@ import properties
 import database
 
 VERSION = "0.1.6"
+
+locale.setlocale(locale.LC_ALL)
 
 def usage(available_commands):
     USAGE = "Gitissius v%s\n\n" % VERSION

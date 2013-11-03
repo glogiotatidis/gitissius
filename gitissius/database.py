@@ -4,9 +4,25 @@
 import os.path
 import json
 import pickle
+import datetime
 
 import common
 import properties
+
+
+
+class DateTimeJSONEncoder(json.JSONEncoder):
+    """
+    Custom JSON Encoder for dealing with datetime properties.
+
+    Originally from http://stackoverflow.com/questions/455580
+    """
+    def default(self, obj):
+        if isinstance(obj, datetime.datetime):
+            return obj.isoformat()
+        else:
+            return super(DateTimeJSONEncoder, self).default(obj)
+
 
 class DbObject(object):
     """
@@ -38,7 +54,7 @@ class DbObject(object):
         """
         dic = {}
         for prop in self._properties:
-            dic[prop.name] = prop.repr('value')
+            dic[prop.name] = prop.repr('value').encode('utf8')
 
         return dic
 
@@ -70,7 +86,7 @@ class DbObject(object):
             item_data = item.serialize()
             data[item_data['name']] = item_data['value']
 
-        return json.dumps(data, indent=indent)
+        return json.dumps(data, indent=indent, cls=DateTimeJSONEncoder)
 
     @property
     def properties(self):

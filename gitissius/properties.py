@@ -1,6 +1,7 @@
 import common
 import hashlib
 import readline
+import logging
 
 readline.parse_and_bind('tab: complete')
 
@@ -34,6 +35,7 @@ class DbProperty(object):
         return ' '.join(map(lambda x: x.capitalize(), self.name.split('_')))
 
     def repr(self, attr):
+        logging.debug("attr = %s (%s)", attr, type(attr))
         value = getattr(self, attr)
 
         if common.colorama:
@@ -110,7 +112,7 @@ class DbProperty(object):
         Return a python dictionary ready to be jsonized
         """
         return {'name': self.name,
-                'value': unicode(self.value)
+                'value': self.value
                 }
 
 class Option(DbProperty):
