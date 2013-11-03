@@ -12,6 +12,7 @@
 import optparse
 import os
 import os.path
+import re
 import shutil
 import sys
 import string
@@ -62,10 +63,18 @@ def initialize():
     if not 'gitissius' in gitshelve.git('branch'):
         # no local gitissius branch exists
         # check if there is a remote
-        if 'remotes/origin/gitissius' in gitshelve.git('branch', '-a'):
-            # remote branch exists
+        remotes = re.findall("remotes/(.*)/gitissius", gitshelve.git('branch', '-a'))
+
+        if len(remotes) == 1:
             # create a local copy
-            gitshelve.git('branch', 'gitissius', 'origin/gitissius')
+            gitshelve.git('branch', 'gitissius', remotes[0] + '/gitissius')
+
+        elif len(remotes) > 1:
+            # multiple remote branches exist
+            print "Multiple remote gitissius branches exist, please run one of the following commands:"
+            for r in remotes:
+                print "   git branch gitissius " + r + "/gitissius"
+            sys.exit(1)
 
         else:
             # save current branch name
@@ -80,10 +89,9 @@ def initialize():
 
             # create an empty repo
             gitshelve.git('symbolic-ref', 'HEAD', 'refs/heads/gitissius')
-            cwd = common.find_repo_root()
-            os.unlink(os.path.join(cwd, '.git', 'index'))
-            gitshelve.git('clean', '-fdx')
-            gitshelve.git('commit', '--allow-empty', '-m', 'Initialization')
+            # remove all tracked files, but keep untracked ones
+            gitshelve.git('rm', '--ignore-unmatch', '-rf', '*')
+            gitshelve.git('commit', '--allow-empty', '-m', 'Initialization of gitissius')
             gitshelve.git('checkout', branch)
 
             try:

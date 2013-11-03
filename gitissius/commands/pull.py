@@ -7,7 +7,7 @@ class Command(commands.GitissiusCommand):
     Pull issues to repo
     """
     name="pull"
-    help="Pull issues to origin"
+    help="Pull issues from upstream"
 
     def _execute(self, options, args):
         # save current branch name
@@ -30,7 +30,7 @@ class Command(commands.GitissiusCommand):
             gitshelve.git('checkout', 'gitissius')
 
         # pull updates
-        gitshelve.git('pull', 'origin', 'gitissius')
+        gitshelve.git('pull')
 
         # switch back to previous branch
         gitshelve.git('checkout', branch)
